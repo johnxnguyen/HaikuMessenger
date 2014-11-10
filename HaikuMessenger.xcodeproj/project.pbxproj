@@ -9,11 +9,32 @@
 /* Begin PBXBuildFile section */
 		EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */; };
 		EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */; };
-		EE1041011A10AC5000E9CBFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1041001A10AC5000E9CBFE /* ViewController.swift */; };
 		EE1041041A10AC5000E9CBFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1041021A10AC5000E9CBFE /* Main.storyboard */; };
 		EE1041061A10AC5000E9CBFE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE1041051A10AC5000E9CBFE /* Images.xcassets */; };
 		EE1041091A10AC5000E9CBFE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */; };
 		EE1041151A10AC5100E9CBFE /* HaikuMessengerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1041141A10AC5100E9CBFE /* HaikuMessengerTests.swift */; };
+		EE10411F1A10AE1500E9CBFE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10411E1A10AE1500E9CBFE /* AudioToolbox.framework */; };
+		EE1041211A10AE2600E9CBFE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041201A10AE2600E9CBFE /* CFNetwork.framework */; };
+		EE1041231A10AE2E00E9CBFE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041221A10AE2E00E9CBFE /* CoreGraphics.framework */; };
+		EE1041251A10AE3400E9CBFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041241A10AE3400E9CBFE /* CoreLocation.framework */; };
+		EE1041271A10AE4000E9CBFE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041261A10AE4000E9CBFE /* libz.dylib */; };
+		EE1041291A10AE4800E9CBFE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041281A10AE4800E9CBFE /* MobileCoreServices.framework */; };
+		EE10412B1A10AE4E00E9CBFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10412A1A10AE4E00E9CBFE /* QuartzCore.framework */; };
+		EE10412D1A10AE5600E9CBFE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10412C1A10AE5600E9CBFE /* Security.framework */; };
+		EE10412F1A10AE5D00E9CBFE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10412E1A10AE5D00E9CBFE /* StoreKit.framework */; };
+		EE1041311A10AE6500E9CBFE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041301A10AE6500E9CBFE /* SystemConfiguration.framework */; };
+		EE1041371A10AE9A00E9CBFE /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041331A10AE9A00E9CBFE /* Bolts.framework */; };
+		EE1041381A10AE9A00E9CBFE /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041341A10AE9A00E9CBFE /* Parse.framework */; };
+		EE1041391A10AE9A00E9CBFE /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041351A10AE9A00E9CBFE /* ParseFacebookUtils.framework */; };
+		EE10413A1A10AE9A00E9CBFE /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041361A10AE9A00E9CBFE /* ParseUI.framework */; };
+		EE10413F1A10B12400E9CBFE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10413E1A10B12400E9CBFE /* FacebookSDK.framework */; };
+		EE1041411A10B2A700E9CBFE /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1041401A10B2A700E9CBFE /* LoginVC.swift */; };
+		EE1041441A10B3A500E9CBFE /* FacebookRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1041431A10B3A500E9CBFE /* FacebookRegisterVC.swift */; };
+		EE25CDCF1A10BE6100FF95AB /* InboxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */; };
+		EE25CDD31A10D91600FF95AB /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD21A10D91600FF95AB /* Factory.swift */; };
+		EE25CDD51A10DFF900FF95AB /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */; };
+		EE25CDD71A10E31B00FF95AB /* AddFriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD61A10E31B00FF95AB /* AddFriendVC.swift */; };
+		EE25CDD91A1106E200FF95AB /* EMailRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD81A1106E200FF95AB /* EMailRegisterVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,13 +52,35 @@
 		EE1040FA1A10AC5000E9CBFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE1040FE1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HaikuMessenger.xcdatamodel; sourceTree = "<group>"; };
-		EE1041001A10AC5000E9CBFE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EE1041031A10AC5000E9CBFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE1041051A10AC5000E9CBFE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EE1041081A10AC5000E9CBFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		EE10410E1A10AC5100E9CBFE /* HaikuMessengerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaikuMessengerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE1041131A10AC5100E9CBFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE1041141A10AC5100E9CBFE /* HaikuMessengerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikuMessengerTests.swift; sourceTree = "<group>"; };
+		EE10411E1A10AE1500E9CBFE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		EE1041201A10AE2600E9CBFE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EE1041221A10AE2E00E9CBFE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EE1041241A10AE3400E9CBFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		EE1041261A10AE4000E9CBFE /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		EE1041281A10AE4800E9CBFE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		EE10412A1A10AE4E00E9CBFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EE10412C1A10AE5600E9CBFE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EE10412E1A10AE5D00E9CBFE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		EE1041301A10AE6500E9CBFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EE1041331A10AE9A00E9CBFE /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		EE1041341A10AE9A00E9CBFE /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		EE1041351A10AE9A00E9CBFE /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		EE1041361A10AE9A00E9CBFE /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		EE10413B1A10AF3200E9CBFE /* HaikuMessenger-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HaikuMessenger-Bridging-Header.h"; sourceTree = "<group>"; };
+		EE10413E1A10B12400E9CBFE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		EE1041401A10B2A700E9CBFE /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = "View Controllers/LoginVC.swift"; sourceTree = "<group>"; };
+		EE1041431A10B3A500E9CBFE /* FacebookRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FacebookRegisterVC.swift; path = "View Controllers/FacebookRegisterVC.swift"; sourceTree = "<group>"; };
+		EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InboxVC.swift; path = "View Controllers/InboxVC.swift"; sourceTree = "<group>"; };
+		EE25CDD21A10D91600FF95AB /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Factory.swift; path = HaikuMessenger/Classes/Factory.swift; sourceTree = "<group>"; };
+		EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendsVC.swift; path = "View Controllers/FriendsVC.swift"; sourceTree = "<group>"; };
+		EE25CDD61A10E31B00FF95AB /* AddFriendVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFriendVC.swift; path = "View Controllers/AddFriendVC.swift"; sourceTree = "<group>"; };
+		EE25CDD81A1106E200FF95AB /* EMailRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EMailRegisterVC.swift; path = "View Controllers/EMailRegisterVC.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +88,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE1041311A10AE6500E9CBFE /* SystemConfiguration.framework in Frameworks */,
+				EE10412F1A10AE5D00E9CBFE /* StoreKit.framework in Frameworks */,
+				EE10413A1A10AE9A00E9CBFE /* ParseUI.framework in Frameworks */,
+				EE10412D1A10AE5600E9CBFE /* Security.framework in Frameworks */,
+				EE10412B1A10AE4E00E9CBFE /* QuartzCore.framework in Frameworks */,
+				EE1041291A10AE4800E9CBFE /* MobileCoreServices.framework in Frameworks */,
+				EE1041271A10AE4000E9CBFE /* libz.dylib in Frameworks */,
+				EE1041251A10AE3400E9CBFE /* CoreLocation.framework in Frameworks */,
+				EE1041231A10AE2E00E9CBFE /* CoreGraphics.framework in Frameworks */,
+				EE1041371A10AE9A00E9CBFE /* Bolts.framework in Frameworks */,
+				EE1041211A10AE2600E9CBFE /* CFNetwork.framework in Frameworks */,
+				EE10413F1A10B12400E9CBFE /* FacebookSDK.framework in Frameworks */,
+				EE1041381A10AE9A00E9CBFE /* Parse.framework in Frameworks */,
+				EE10411F1A10AE1500E9CBFE /* AudioToolbox.framework in Frameworks */,
+				EE1041391A10AE9A00E9CBFE /* ParseFacebookUtils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +119,9 @@
 		EE1040ED1A10AC5000E9CBFE = {
 			isa = PBXGroup;
 			children = (
+				EE25CDD21A10D91600FF95AB /* Factory.swift */,
 				EE1040F81A10AC5000E9CBFE /* HaikuMessenger */,
+				EE1041321A10AE7B00E9CBFE /* Frameworks */,
 				EE1041111A10AC5100E9CBFE /* HaikuMessengerTests */,
 				EE1040F71A10AC5000E9CBFE /* Products */,
 			);
@@ -80,11 +140,9 @@
 			isa = PBXGroup;
 			children = (
 				EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */,
-				EE1041001A10AC5000E9CBFE /* ViewController.swift */,
 				EE1041021A10AC5000E9CBFE /* Main.storyboard */,
+				EE1041421A10B2AD00E9CBFE /* View Controllers */,
 				EE1041051A10AC5000E9CBFE /* Images.xcassets */,
-				EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */,
-				EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */,
 				EE1040F91A10AC5000E9CBFE /* Supporting Files */,
 			);
 			path = HaikuMessenger;
@@ -93,7 +151,10 @@
 		EE1040F91A10AC5000E9CBFE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */,
+				EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */,
 				EE1040FA1A10AC5000E9CBFE /* Info.plist */,
+				EE10413B1A10AF3200E9CBFE /* HaikuMessenger-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -113,6 +174,41 @@
 				EE1041131A10AC5100E9CBFE /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EE1041321A10AE7B00E9CBFE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE10413E1A10B12400E9CBFE /* FacebookSDK.framework */,
+				EE1041331A10AE9A00E9CBFE /* Bolts.framework */,
+				EE1041341A10AE9A00E9CBFE /* Parse.framework */,
+				EE1041351A10AE9A00E9CBFE /* ParseFacebookUtils.framework */,
+				EE1041361A10AE9A00E9CBFE /* ParseUI.framework */,
+				EE1041301A10AE6500E9CBFE /* SystemConfiguration.framework */,
+				EE10412E1A10AE5D00E9CBFE /* StoreKit.framework */,
+				EE10412C1A10AE5600E9CBFE /* Security.framework */,
+				EE10412A1A10AE4E00E9CBFE /* QuartzCore.framework */,
+				EE1041281A10AE4800E9CBFE /* MobileCoreServices.framework */,
+				EE1041261A10AE4000E9CBFE /* libz.dylib */,
+				EE1041241A10AE3400E9CBFE /* CoreLocation.framework */,
+				EE1041221A10AE2E00E9CBFE /* CoreGraphics.framework */,
+				EE1041201A10AE2600E9CBFE /* CFNetwork.framework */,
+				EE10411E1A10AE1500E9CBFE /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE1041421A10B2AD00E9CBFE /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EE1041401A10B2A700E9CBFE /* LoginVC.swift */,
+				EE1041431A10B3A500E9CBFE /* FacebookRegisterVC.swift */,
+				EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */,
+				EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */,
+				EE25CDD61A10E31B00FF95AB /* AddFriendVC.swift */,
+				EE25CDD81A1106E200FF95AB /* EMailRegisterVC.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,9 +311,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE1041011A10AC5000E9CBFE /* ViewController.swift in Sources */,
+				EE25CDD51A10DFF900FF95AB /* FriendsVC.swift in Sources */,
+				EE25CDCF1A10BE6100FF95AB /* InboxVC.swift in Sources */,
+				EE25CDD91A1106E200FF95AB /* EMailRegisterVC.swift in Sources */,
 				EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */,
+				EE25CDD31A10D91600FF95AB /* Factory.swift in Sources */,
 				EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */,
+				EE1041411A10B2A700E9CBFE /* LoginVC.swift in Sources */,
+				EE25CDD71A10E31B00FF95AB /* AddFriendVC.swift in Sources */,
+				EE1041441A10B3A500E9CBFE /* FacebookRegisterVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,9 +444,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HaikuMessenger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HaikuMessenger/HaikuMessenger-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -352,9 +461,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HaikuMessenger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HaikuMessenger/HaikuMessenger-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -411,6 +526,7 @@
 				EE10411A1A10AC5100E9CBFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE10411B1A10AC5100E9CBFE /* Build configuration list for PBXNativeTarget "HaikuMessengerTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +535,7 @@
 				EE10411D1A10AC5100E9CBFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
