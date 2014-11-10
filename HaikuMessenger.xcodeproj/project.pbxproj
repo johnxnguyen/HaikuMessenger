@@ -1,0 +1,439 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */; };
+		EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */; };
+		EE1041011A10AC5000E9CBFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1041001A10AC5000E9CBFE /* ViewController.swift */; };
+		EE1041041A10AC5000E9CBFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1041021A10AC5000E9CBFE /* Main.storyboard */; };
+		EE1041061A10AC5000E9CBFE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE1041051A10AC5000E9CBFE /* Images.xcassets */; };
+		EE1041091A10AC5000E9CBFE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */; };
+		EE1041151A10AC5100E9CBFE /* HaikuMessengerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1041141A10AC5100E9CBFE /* HaikuMessengerTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE10410F1A10AC5100E9CBFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE1040EE1A10AC5000E9CBFE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE1040F51A10AC5000E9CBFE;
+			remoteInfo = HaikuMessenger;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EE1040F61A10AC5000E9CBFE /* HaikuMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaikuMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE1040FA1A10AC5000E9CBFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EE1040FE1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HaikuMessenger.xcdatamodel; sourceTree = "<group>"; };
+		EE1041001A10AC5000E9CBFE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE1041031A10AC5000E9CBFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EE1041051A10AC5000E9CBFE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EE1041081A10AC5000E9CBFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		EE10410E1A10AC5100E9CBFE /* HaikuMessengerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaikuMessengerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE1041131A10AC5100E9CBFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE1041141A10AC5100E9CBFE /* HaikuMessengerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaikuMessengerTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE1040F31A10AC5000E9CBFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE10410B1A10AC5100E9CBFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE1040ED1A10AC5000E9CBFE = {
+			isa = PBXGroup;
+			children = (
+				EE1040F81A10AC5000E9CBFE /* HaikuMessenger */,
+				EE1041111A10AC5100E9CBFE /* HaikuMessengerTests */,
+				EE1040F71A10AC5000E9CBFE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE1040F71A10AC5000E9CBFE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE1040F61A10AC5000E9CBFE /* HaikuMessenger.app */,
+				EE10410E1A10AC5100E9CBFE /* HaikuMessengerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE1040F81A10AC5000E9CBFE /* HaikuMessenger */ = {
+			isa = PBXGroup;
+			children = (
+				EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */,
+				EE1041001A10AC5000E9CBFE /* ViewController.swift */,
+				EE1041021A10AC5000E9CBFE /* Main.storyboard */,
+				EE1041051A10AC5000E9CBFE /* Images.xcassets */,
+				EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */,
+				EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */,
+				EE1040F91A10AC5000E9CBFE /* Supporting Files */,
+			);
+			path = HaikuMessenger;
+			sourceTree = "<group>";
+		};
+		EE1040F91A10AC5000E9CBFE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EE1040FA1A10AC5000E9CBFE /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EE1041111A10AC5100E9CBFE /* HaikuMessengerTests */ = {
+			isa = PBXGroup;
+			children = (
+				EE1041141A10AC5100E9CBFE /* HaikuMessengerTests.swift */,
+				EE1041121A10AC5100E9CBFE /* Supporting Files */,
+			);
+			path = HaikuMessengerTests;
+			sourceTree = "<group>";
+		};
+		EE1041121A10AC5100E9CBFE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EE1041131A10AC5100E9CBFE /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE1040F51A10AC5000E9CBFE /* HaikuMessenger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE1041181A10AC5100E9CBFE /* Build configuration list for PBXNativeTarget "HaikuMessenger" */;
+			buildPhases = (
+				EE1040F21A10AC5000E9CBFE /* Sources */,
+				EE1040F31A10AC5000E9CBFE /* Frameworks */,
+				EE1040F41A10AC5000E9CBFE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HaikuMessenger;
+			productName = HaikuMessenger;
+			productReference = EE1040F61A10AC5000E9CBFE /* HaikuMessenger.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EE10410D1A10AC5100E9CBFE /* HaikuMessengerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE10411B1A10AC5100E9CBFE /* Build configuration list for PBXNativeTarget "HaikuMessengerTests" */;
+			buildPhases = (
+				EE10410A1A10AC5100E9CBFE /* Sources */,
+				EE10410B1A10AC5100E9CBFE /* Frameworks */,
+				EE10410C1A10AC5100E9CBFE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE1041101A10AC5100E9CBFE /* PBXTargetDependency */,
+			);
+			name = HaikuMessengerTests;
+			productName = HaikuMessengerTests;
+			productReference = EE10410E1A10AC5100E9CBFE /* HaikuMessengerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE1040EE1A10AC5000E9CBFE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "John Nguyen";
+				TargetAttributes = {
+					EE1040F51A10AC5000E9CBFE = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					EE10410D1A10AC5100E9CBFE = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = EE1040F51A10AC5000E9CBFE;
+					};
+				};
+			};
+			buildConfigurationList = EE1040F11A10AC5000E9CBFE /* Build configuration list for PBXProject "HaikuMessenger" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE1040ED1A10AC5000E9CBFE;
+			productRefGroup = EE1040F71A10AC5000E9CBFE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE1040F51A10AC5000E9CBFE /* HaikuMessenger */,
+				EE10410D1A10AC5100E9CBFE /* HaikuMessengerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE1040F41A10AC5000E9CBFE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE1041041A10AC5000E9CBFE /* Main.storyboard in Resources */,
+				EE1041091A10AC5000E9CBFE /* LaunchScreen.xib in Resources */,
+				EE1041061A10AC5000E9CBFE /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE10410C1A10AC5100E9CBFE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE1040F21A10AC5000E9CBFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE1041011A10AC5000E9CBFE /* ViewController.swift in Sources */,
+				EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */,
+				EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE10410A1A10AC5100E9CBFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE1041151A10AC5100E9CBFE /* HaikuMessengerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE1041101A10AC5100E9CBFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE1040F51A10AC5000E9CBFE /* HaikuMessenger */;
+			targetProxy = EE10410F1A10AC5100E9CBFE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EE1041021A10AC5000E9CBFE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE1041031A10AC5000E9CBFE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE1041081A10AC5000E9CBFE /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EE1041161A10AC5100E9CBFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE1041171A10AC5100E9CBFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE1041191A10AC5100E9CBFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HaikuMessenger/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EE10411A1A10AC5100E9CBFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HaikuMessenger/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EE10411C1A10AC5100E9CBFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HaikuMessengerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HaikuMessenger.app/HaikuMessenger";
+			};
+			name = Debug;
+		};
+		EE10411D1A10AC5100E9CBFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HaikuMessengerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HaikuMessenger.app/HaikuMessenger";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE1040F11A10AC5000E9CBFE /* Build configuration list for PBXProject "HaikuMessenger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE1041161A10AC5100E9CBFE /* Debug */,
+				EE1041171A10AC5100E9CBFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE1041181A10AC5100E9CBFE /* Build configuration list for PBXNativeTarget "HaikuMessenger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE1041191A10AC5100E9CBFE /* Debug */,
+				EE10411A1A10AC5100E9CBFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EE10411B1A10AC5100E9CBFE /* Build configuration list for PBXNativeTarget "HaikuMessengerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE10411C1A10AC5100E9CBFE /* Debug */,
+				EE10411D1A10AC5100E9CBFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EE1040FE1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodel */,
+			);
+			currentVersion = EE1040FE1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodel */;
+			path = HaikuMessenger.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = EE1040EE1A10AC5000E9CBFE /* Project object */;
+}
