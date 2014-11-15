@@ -20,13 +20,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		// set up Parse
 		Parse.setApplicationId("c9OYYti1GDRDDCzMoorltK4wKOFhXr0VGGG3tjdI", clientKey: "U4ZvJjglcUMiF93MhstUGZ5NzHR98ZaQVtcv0tJH")
-		
+
 		// set up Facebook
 		PFFacebookUtils.initializeFacebook()
 		
-		// generate users
-		// Factory.generateUsers()
+		// security measures
+		PFUser.enableAutomaticUser()
+		var defaultACL = PFACL()
 		
+		// optionally enable public read access, while disabling public write
+		defaultACL.setPublicReadAccess(true)
+		
+		PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
+		
+		// generate users
+		//Factory.generateUsers()
+		
+		
+		// Facebook, check for cached session
+		
+		// Whenever a person opens the app, check for a cached session
+		if FBSession.activeSession().state == FBSessionState.CreatedTokenLoaded {
+			
+			// If there's one, just open the session silently, without showing the user the login UI
+			FBSession.openActiveSessionWithReadPermissions(["publich_profile"], allowLoginUI: false, completionHandler: { (session: FBSession!, state: FBSessionState, error: NSError!) -> Void in
+				
+				// Handler for session state changes
+				// This method will be called EACH time the session state changes,
+				// also for intermediate states and NOT just when the session open
+				self.sessionStateChanged(session, state: state, error: error)
+
+			})
+		}
 		
 		return true
 	}
@@ -34,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
 		
 		// handler
-		return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session())
+		return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
 	}
 
 	func applicationWillResignActive(application: UIApplication) {
@@ -55,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 		
 		// handler
-		FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
+		FBAppCall.handleDidBecomeActive()
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
@@ -126,6 +151,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	        }
 	    }
 	}
-
+	
+	// ------------------------------------------------------------------
+	//	MARK:					 HELPERS
+	// ------------------------------------------------------------------
+	
+	// FB SESSION STATE CHANGED
+	//
+	func sessionStateChanged(session: FBSession, state: FBSessionState, error: NSError!) {
+		
+		// If the session was opened successfully
+		if error == nil && state == FBSessionState.Open {
+			println("Facebook Session Opened")
+			return
+		}
+		
+		if state == FBSessionState.Closed || state == FBSessionState.ClosedLoginFailed {
+			println("Facebook Session Closed")
+		}
+		
+		// Handle errors
+		if error != nil {
+			println("Error with Facebook Session")
+		}
+		
+		// Clear this token
+		FBSession.activeSession().closeAndClearTokenInformation()
+	}
 }
 

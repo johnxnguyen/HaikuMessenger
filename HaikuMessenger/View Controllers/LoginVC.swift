@@ -25,7 +25,6 @@ class LoginVC: UIViewController {
 	//
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 	}
 	
 	// VIEW DID APPEAR
@@ -33,11 +32,10 @@ class LoginVC: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		// already logged in? there is a current user &|| it's linked with FB
+		// FB user already logged in?
 		if PFUser.currentUser() != nil && PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()) {
-			
 			// go straight to inbox
-			performSegueWithIdentifier("InboxSegue", sender: nil)
+			performSegueWithIdentifier("PageContainerSegue", sender: nil)
 		}
 	}
 	
@@ -45,6 +43,24 @@ class LoginVC: UIViewController {
 	//
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
+	}
+	
+	// PREPARE FOR SEGUE
+	//
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		
+		if segue.identifier == "RegisterSegue" {
+			
+			var targetViewController = segue.destinationViewController as RegisterVC
+			
+			// who is calling?
+			if (sender as String) == "facebookButton" {
+				targetViewController.facebookLogin = true
+			} else {
+				targetViewController.facebookLogin = false
+			}
+			
+		}
 	}
 	
 	// ------------------------------------------------------------------
@@ -62,14 +78,12 @@ class LoginVC: UIViewController {
 			(user: PFUser!, error: NSError!) -> Void in
 			
 			// success
-			if user != nil {
-				
-				// segue to inbox
-				self.performSegueWithIdentifier("InboxSegue", sender: nil)
-				
+			if error == nil {				
 				// clear text fields
 				self.usernameTextField.text = ""
 				self.passwordTextField.text = ""
+				// segue to inbox
+				self.performSegueWithIdentifier("PageContainerSegue", sender: nil)
 				
 			} else {
 				// error
@@ -80,43 +94,29 @@ class LoginVC: UIViewController {
 		}
 	}
 	
-	// FACEBOOK BUTTON
+	// REGISTER WITH FACEBOOK BUTTON
 	//
-	@IBAction func facebookButtonTapped(sender: UIButton) {
+	@IBAction func registerWithFacebookButtonTapped(sender: UIButton) {
 		
-		let permissions = ["public_profile", "email", "user_friends"]
-		
-		PFFacebookUtils.logInWithPermissions(permissions, block: {
-			(user: PFUser!, error: NSError!) -> Void in
+
+		// open the session
+		FBSession.openActiveSessionWithReadPermissions(["public_profile", "email", "user_friends"], allowLoginUI: true, completionHandler: { (session: FBSession!, state: FBSessionState, error: NSError!) -> Void in
 			
-			// success
-			if user != nil {
-				
-				println("Facebook user successfully logged in/created to Parse")
-				
-				// segue to FB account details
-				self.performSegueWithIdentifier("FacebookRegisterSegue", sender: nil)
-				
-			} else {
-				
-				// no error
-				if error == nil {
-					
-					println("Facebook Login was cancelled")
-				} else {
-					println(error.description)
-				}
-				
-			}
+			// Retrieve the app delegate
+			let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+			
+			// Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+			appDelegate.sessionStateChanged(session, state: state, error: error)
+			
+			// go to register view controller
+			self.performSegueWithIdentifier("RegisterSegue", sender: "facebookButton")
 		})
 	}
 	
-	// EMAIL BUTTON
+	// REGISTER WITH EMAIL BUTTON
 	//
-	@IBAction func emailButtonTapped(sender: UIButton) {
+	@IBAction func registerWithEmailButtonTapped(sender: UIButton) {
 		
-		performSegueWithIdentifier("EMailRegisterSegue", sender: nil)
+		performSegueWithIdentifier("RegisterSegue", sender: "emailButton")
 	}
-	
-
 }

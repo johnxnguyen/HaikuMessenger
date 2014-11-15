@@ -37,18 +37,12 @@ class InboxVC: UIViewController {
 	//	MARK:				  USER INTERFACE
 	// ------------------------------------------------------------------
 	
-	@IBAction func friendsBarButtonTapped(sender: UIBarButtonItem) {
-		
-		// segue
-		performSegueWithIdentifier("FriendsSegue", sender: self)
-	}
-	
 	@IBAction func logOutButtonTapped(sender: UIButton) {
 		
 		PFUser.logOut()
 		
 		// go to login
-		self.navigationController!.popToRootViewControllerAnimated(true)
+		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 
 }

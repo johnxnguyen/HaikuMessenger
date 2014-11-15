@@ -34,7 +34,12 @@
 		EE25CDD31A10D91600FF95AB /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD21A10D91600FF95AB /* Factory.swift */; };
 		EE25CDD51A10DFF900FF95AB /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */; };
 		EE25CDD71A10E31B00FF95AB /* AddFriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD61A10E31B00FF95AB /* AddFriendVC.swift */; };
-		EE25CDD91A1106E200FF95AB /* EMailRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD81A1106E200FF95AB /* EMailRegisterVC.swift */; };
+		EEC417221A153672000CD1AC /* PageContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC417211A153672000CD1AC /* PageContainerVC.swift */; };
+		EEC417241A15370B000CD1AC /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC417231A15370B000CD1AC /* RegisterVC.swift */; };
+		EEC96A4D1A129270006B996E /* AddFriendTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC96A4C1A129270006B996E /* AddFriendTableCell.swift */; };
+		EEC96A501A129891006B996E /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC96A4F1A129891006B996E /* Contants.swift */; };
+		EEE7B1FD1A13B9A6008FEE8E /* FriendRequestsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE7B1FC1A13B9A6008FEE8E /* FriendRequestsVC.swift */; };
+		EEE7B1FF1A13C017008FEE8E /* FriendRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE7B1FE1A13C017008FEE8E /* FriendRequestCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +85,12 @@
 		EE25CDD21A10D91600FF95AB /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Factory.swift; path = HaikuMessenger/Classes/Factory.swift; sourceTree = "<group>"; };
 		EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendsVC.swift; path = "View Controllers/FriendsVC.swift"; sourceTree = "<group>"; };
 		EE25CDD61A10E31B00FF95AB /* AddFriendVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFriendVC.swift; path = "View Controllers/AddFriendVC.swift"; sourceTree = "<group>"; };
-		EE25CDD81A1106E200FF95AB /* EMailRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EMailRegisterVC.swift; path = "View Controllers/EMailRegisterVC.swift"; sourceTree = "<group>"; };
+		EEC417211A153672000CD1AC /* PageContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageContainerVC.swift; path = "View Controllers/PageContainerVC.swift"; sourceTree = "<group>"; };
+		EEC417231A15370B000CD1AC /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = "View Controllers/RegisterVC.swift"; sourceTree = "<group>"; };
+		EEC96A4C1A129270006B996E /* AddFriendTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFriendTableCell.swift; path = Subclasses/AddFriendTableCell.swift; sourceTree = "<group>"; };
+		EEC96A4F1A129891006B996E /* Contants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Contants.swift; path = "Supporting Files/Contants.swift"; sourceTree = "<group>"; };
+		EEE7B1FC1A13B9A6008FEE8E /* FriendRequestsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendRequestsVC.swift; path = "View Controllers/FriendRequestsVC.swift"; sourceTree = "<group>"; };
+		EEE7B1FE1A13C017008FEE8E /* FriendRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendRequestCell.swift; path = Subclasses/FriendRequestCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +152,7 @@
 				EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */,
 				EE1041021A10AC5000E9CBFE /* Main.storyboard */,
 				EE1041421A10B2AD00E9CBFE /* View Controllers */,
+				EEC96A4E1A129275006B996E /* Subclasses */,
 				EE1041051A10AC5000E9CBFE /* Images.xcassets */,
 				EE1040F91A10AC5000E9CBFE /* Supporting Files */,
 			);
@@ -151,6 +162,7 @@
 		EE1040F91A10AC5000E9CBFE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EEC96A4F1A129891006B996E /* Contants.swift */,
 				EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */,
 				EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */,
 				EE1040FA1A10AC5000E9CBFE /* Info.plist */,
@@ -202,13 +214,24 @@
 			isa = PBXGroup;
 			children = (
 				EE1041401A10B2A700E9CBFE /* LoginVC.swift */,
+				EEC417231A15370B000CD1AC /* RegisterVC.swift */,
 				EE1041431A10B3A500E9CBFE /* FacebookRegisterVC.swift */,
+				EEC417211A153672000CD1AC /* PageContainerVC.swift */,
 				EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */,
 				EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */,
+				EEE7B1FC1A13B9A6008FEE8E /* FriendRequestsVC.swift */,
 				EE25CDD61A10E31B00FF95AB /* AddFriendVC.swift */,
-				EE25CDD81A1106E200FF95AB /* EMailRegisterVC.swift */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		EEC96A4E1A129275006B996E /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				EEC96A4C1A129270006B996E /* AddFriendTableCell.swift */,
+				EEE7B1FE1A13C017008FEE8E /* FriendRequestCell.swift */,
+			);
+			name = Subclasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,12 +336,17 @@
 			files = (
 				EE25CDD51A10DFF900FF95AB /* FriendsVC.swift in Sources */,
 				EE25CDCF1A10BE6100FF95AB /* InboxVC.swift in Sources */,
-				EE25CDD91A1106E200FF95AB /* EMailRegisterVC.swift in Sources */,
+				EEC96A4D1A129270006B996E /* AddFriendTableCell.swift in Sources */,
+				EEC417221A153672000CD1AC /* PageContainerVC.swift in Sources */,
 				EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */,
+				EEE7B1FF1A13C017008FEE8E /* FriendRequestCell.swift in Sources */,
 				EE25CDD31A10D91600FF95AB /* Factory.swift in Sources */,
 				EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */,
+				EEC417241A15370B000CD1AC /* RegisterVC.swift in Sources */,
 				EE1041411A10B2A700E9CBFE /* LoginVC.swift in Sources */,
 				EE25CDD71A10E31B00FF95AB /* AddFriendVC.swift in Sources */,
+				EEC96A501A129891006B996E /* Contants.swift in Sources */,
+				EEE7B1FD1A13B9A6008FEE8E /* FriendRequestsVC.swift in Sources */,
 				EE1041441A10B3A500E9CBFE /* FacebookRegisterVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

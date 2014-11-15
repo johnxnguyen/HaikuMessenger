@@ -87,6 +87,10 @@ class FacebookRegisterVC: UIViewController, NSURLConnectionDataDelegate {
 				currentUser.password = self.passwordTextField.text
 				currentUser.email = userEmail
 				
+				// save photo
+				let photoFile = PFFile(data: self.imageData)
+				currentUser[kUser.ProfilePhoto] = photoFile
+				
 				// VERIFY EMAIL HERE
 				
 				// save user, go to log in screen
@@ -97,8 +101,8 @@ class FacebookRegisterVC: UIViewController, NSURLConnectionDataDelegate {
 					if error == nil {
 						println("Facebook user registration complete: \(currentUser.username)")
 
-						// go back to login
-						self.navigationController!.popViewControllerAnimated(true)
+						// go back to inbox
+						self.performSegueWithIdentifier("InboxSegue", sender: nil)
 						
 					} else {
 						// alert user of error
@@ -108,6 +112,25 @@ class FacebookRegisterVC: UIViewController, NSURLConnectionDataDelegate {
 					}
 				})
 			})
+		}
+	}
+	
+	// CANCEL BUTTON
+	//
+	@IBAction func cancelBarButtonTapped(sender: UIButton) {
+		
+		// delete facebook user from Parse (created on previous page)
+		PFUser.currentUser().deleteInBackgroundWithBlock {
+			(sucess: Bool!, error: NSError!) -> Void in
+			
+			if error == nil {
+				println("Registration canceled, FB user deleted")
+			} else {
+				println("Error: \(error.userInfo)")
+			}
+			
+			// go back to login
+			self.navigationController!.popToRootViewControllerAnimated(true)
 		}
 	}
 	
@@ -151,6 +174,7 @@ class FacebookRegisterVC: UIViewController, NSURLConnectionDataDelegate {
 		}
 		
 	}
+
 	
 	// VALIDATE FORM
 	//
