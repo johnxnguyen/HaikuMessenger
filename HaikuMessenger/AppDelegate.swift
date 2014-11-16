@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		// Override point for customization after application launch.
 		
 		// set up Parse
 		Parse.setApplicationId("c9OYYti1GDRDDCzMoorltK4wKOFhXr0VGGG3tjdI", clientKey: "U4ZvJjglcUMiF93MhstUGZ5NzHR98ZaQVtcv0tJH")
@@ -172,11 +171,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		// Handle errors
 		if error != nil {
-			println("Error with Facebook Session")
+			
+			print("Facebook Session Error. ")
+			
+			var alertText: String
+			var alertTitle: String
+			
+			// If the error requires people using an app to make an action outside of the app in order to recover
+			if FBErrorUtility.shouldNotifyUserForError(error) == true {
+				alertTitle = "Something went wrong"
+				alertText = FBErrorUtility.userMessageForError(error)
+				showMessage(alertText, withTitle: alertTitle)
+				
+			} else {
+				
+				// if the user cancelled login, do nothing
+				if FBErrorUtility.errorCategoryForError(error) == FBErrorCategory.UserCancelled {
+					println("User cancelled login")
+					
+				} else if FBErrorUtility.errorCategoryForError(error) == FBErrorCategory.AuthenticationReopenSession {
+					alertTitle = "Session Error"
+					alertText = "Your current session is no longer valid. Please log in again."
+					showMessage(alertText, withTitle: alertTitle)
+					
+				} else {
+					// Here we will handle all other errors with a generic error message.
+					// We recommend you check our Handling Errors guide for more info
+					// https://developers.facebook.com/docs/ios/errors/
+					
+					// get more error info from the error
+					let errorUserInfo: NSDictionary = error.userInfo!
+					let errorInfo = errorUserInfo.objectForKey("com.facebook.sdk:ParsedJSONResponseKey")! as NSDictionary
+					let body = errorInfo.objectForKey("body") as NSDictionary
+					let errorCode = body.objectForKey("error") as NSDictionary
+					let errorMessage: AnyObject? = errorCode.objectForKey("message")
+					
+					// show message
+					alertTitle = "Something went wrong"
+					alertText = "Please retry. \n\n If the problem persists contact us and mention this error code: \(errorMessage)"
+					showMessage(alertText, withTitle: alertTitle)
+				}
+			}
+			
+			// Clear this token
+			FBSession.activeSession().closeAndClearTokenInformation()
 		}
 		
-		// Clear this token
-		FBSession.activeSession().closeAndClearTokenInformation()
 	}
+	
+	// SHOW MESSAGE
+	//
+	func showMessage(message: String, withTitle title: String) {
+		
+		let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Ok")
+		alert.show()
+	}
+	
 }
 

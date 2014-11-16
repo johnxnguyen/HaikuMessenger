@@ -6,6 +6,13 @@
 //  Copyright (c) 2014 John Nguyen. All rights reserved.
 //
 
+//	-------------------------- TO DO -----------------------------
+//
+//	- Case insensitive searching
+//	
+//
+//	--------------------------------------------------------------
+
 import UIKit
 
 class AddFriendVC: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {

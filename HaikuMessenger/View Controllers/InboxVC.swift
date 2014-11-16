@@ -42,7 +42,7 @@ class InboxVC: UIViewController {
 		PFUser.logOut()
 		
 		// go to login
-		self.dismissViewControllerAnimated(true, completion: nil)
+		dismissViewControllerAnimated(true, completion: nil)
 	}
 
 }

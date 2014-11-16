@@ -5,8 +5,13 @@
 //  Created by John Nguyen on 13/11/2014.
 //  Copyright (c) 2014 John Nguyen. All rights reserved.
 //
-//	NEED TO UPDATE FORM VALIDATION FOR EMAIL
-//	NEED TO UPDATE SIGN UP FOR EMAIL USERS
+
+//	-------------------------- TO DO -----------------------------
+//
+//	- forgot password?
+//
+//	--------------------------------------------------------------
+
 
 import UIKit
 
@@ -43,6 +48,13 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 		super.viewDidLoad()
 		
 		imageView.image = profilePicture
+		// needs to be half the width to be a circle
+		// for some reason the frame is wack at runtime
+		imageView.layer.cornerRadius = 80
+		imageView.layer.masksToBounds = true
+		imageView.layer.borderWidth = 5.0
+		imageView.layer.borderColor = UIColor.whiteColor().CGColor
+		
 		
 		if facebookLogin == true {
 			
@@ -72,7 +84,9 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 					
 				} else {
 					println("Error: \(error.userInfo)")
-					self.dismissViewControllerAnimated(true, completion: nil)
+					
+					// go to login
+					self.navigationController!.popViewControllerAnimated(true)
 				}
 			})
 			
@@ -92,21 +106,15 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 	//	MARK:				  USER INTERFACE
 	// ------------------------------------------------------------------
 	
-	// SIGN UP BUTTON
+	// DONE
 	//
-	@IBAction func SignUpButtonTapped(sender: UIButton) {
+	@IBAction func doneBarButtonTapped(sender: UIBarButtonItem) {
 		
 		// validate form
 		if formIsValid() {
 			
 			// FACEBOOK REGISTRATION
 			if facebookLogin == true && facebookUser != nil {
-				
-				
-				
-				// VERIFY EMAIL HERE
-				
-				
 				
 				let facebookID = facebookUser!["id"] as String
 				let accessTokenData = FBSession.activeSession().accessTokenData
@@ -120,7 +128,7 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 						
 						// update user details
 						user.username = self.usernameTextField.text
-						user.password = self.usernameTextField.text
+						user.password = self.passwordTextField.text
 						// get email address & photo
 						user.email = self.facebookUser!["email"] as String
 						
@@ -134,8 +142,8 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 							if error == nil {
 								println("Facebook user registration complete!")
 								
-								// go to PageContainer (then to inbox)
-								self.performSegueWithIdentifier("PageContainerSegue", sender: nil)
+								// go to login
+								self.navigationController!.popViewControllerAnimated(true)
 								
 							} else {
 								println("Error: \(error.userInfo)")
@@ -146,8 +154,8 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 								// alert to try again
 								self.alertUser("Whoops!", message: "Something went wrong, please try again")
 								
-								// go back to log in
-								self.dismissViewControllerAnimated(true, completion: nil)
+								// go to login
+								self.navigationController!.popViewControllerAnimated(true)
 							}
 						})
 						
@@ -160,8 +168,6 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 				
 			} else {
 				// EMAIL REGISTRATION
-				
-				// validate email here
 				
 				var emailUser = PFUser()
 				emailUser.username = usernameTextField.text
@@ -178,8 +184,8 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 						
 						println("Email user successfully registered!")
 						
-						// go to PageContainer (then to inbox)
-						self.performSegueWithIdentifier("PageContainerSegue", sender: nil)
+						// go to login
+						self.navigationController!.popViewControllerAnimated(true)
 						
 					} else {
 						println("Error: \(error.userInfo)")
@@ -187,8 +193,8 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 						// alert to try again
 						self.alertUser("Whoops!", message: "Something went wrong, please try again")
 						
-						// go back to log in
-						self.dismissViewControllerAnimated(true, completion: nil)
+						// go to login
+						self.navigationController!.popViewControllerAnimated(true)
 					}
 				})
 				
@@ -199,7 +205,7 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 	
 	// CANCEL BUTTON
 	//
-	@IBAction func cancelBarButtonTapped(sender: UIButton) {
+	@IBAction func cancelBarButtonTapped(sender: UIBarButtonItem) {
 		
 		// If the session state is any of the two "open" states when the button is clicked
 		if FBSession.activeSession().state == FBSessionState.Open || FBSession.activeSession().state == FBSessionState.OpenTokenExtended {
@@ -209,7 +215,8 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 			FBSession.activeSession().closeAndClearTokenInformation()
 		}
 		
-		dismissViewControllerAnimated(true, completion: nil)
+		// go to login
+		self.navigationController!.popViewControllerAnimated(true)
 	}
 	
 	// ------------------------------------------------------------------

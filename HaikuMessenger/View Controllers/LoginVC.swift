@@ -6,6 +6,14 @@
 //  Copyright (c) 2014 John Nguyen. All rights reserved.
 //
 
+//	NOTES:
+//
+//	All UI is contained in "containerView". If user is already logged in,
+//	to smooth the auto transition to the inbox, the view (with all the UI)
+//	is hidden before seguing to the inbox. Otherwise, the UI would appear
+//	briefly before the segue.
+
+
 import UIKit
 
 class LoginVC: UIViewController {
@@ -14,8 +22,12 @@ class LoginVC: UIViewController {
 	//	MARK:               PROPERTIES & OUTLETS
 	// ------------------------------------------------------------------
 	
+	// all UI is contained in this view
+	@IBOutlet weak var containerView: UIView!
 	@IBOutlet weak var usernameTextField: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
+	
+	var userIsloggedIn: Bool = false
 	
 	// ------------------------------------------------------------------
 	//	MARK:					 STANDARD
@@ -33,10 +45,33 @@ class LoginVC: UIViewController {
 		super.viewDidAppear(animated)
 		
 		// FB user already logged in?
-		if PFUser.currentUser() != nil && PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()) {
+		if userIsloggedIn {
 			// go straight to inbox
 			performSegueWithIdentifier("PageContainerSegue", sender: nil)
 		}
+		
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		// if already logged in
+		if PFUser.currentUser() != nil && PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()) {
+			
+			// hide all UI elements to smooth auto segue to inbox
+			containerView.hidden = true
+			navigationController!.setNavigationBarHidden(true, animated: false)
+			userIsloggedIn = true
+			
+		} else {
+			containerView.hidden = false
+			navigationController!.setNavigationBarHidden(false, animated: true)
+			userIsloggedIn = false
+		}
+		
+		// clear text fields
+		usernameTextField.text = ""
+		passwordTextField.text = ""
 	}
 	
 	// MEMORY WARNING
@@ -57,9 +92,9 @@ class LoginVC: UIViewController {
 			if (sender as String) == "facebookButton" {
 				targetViewController.facebookLogin = true
 			} else {
+				// email registration
 				targetViewController.facebookLogin = false
 			}
-			
 		}
 	}
 	
@@ -79,11 +114,12 @@ class LoginVC: UIViewController {
 			
 			// success
 			if error == nil {				
-				// clear text fields
-				self.usernameTextField.text = ""
-				self.passwordTextField.text = ""
+				
 				// segue to inbox
 				self.performSegueWithIdentifier("PageContainerSegue", sender: nil)
+				// go to root
+				//self.dismissViewControllerAnimated(true, completion: nil)
+				
 				
 			} else {
 				// error
@@ -97,19 +133,26 @@ class LoginVC: UIViewController {
 	// REGISTER WITH FACEBOOK BUTTON
 	//
 	@IBAction func registerWithFacebookButtonTapped(sender: UIButton) {
-		
 
 		// open the session
 		FBSession.openActiveSessionWithReadPermissions(["public_profile", "email", "user_friends"], allowLoginUI: true, completionHandler: { (session: FBSession!, state: FBSessionState, error: NSError!) -> Void in
 			
+			if error == nil {
+				
+				// state is open
+				if state == FBSessionState.Open || state == FBSessionState.OpenTokenExtended {
+					
+					// go to register view controller
+					self.performSegueWithIdentifier("RegisterSegue", sender: "facebookButton")
+				}
+			}
+
 			// Retrieve the app delegate
 			let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
 			
 			// Call the app delegate's sessionStateChanged:state:error method to handle session state changes
 			appDelegate.sessionStateChanged(session, state: state, error: error)
 			
-			// go to register view controller
-			self.performSegueWithIdentifier("RegisterSegue", sender: "facebookButton")
 		})
 	}
 	
@@ -119,4 +162,5 @@ class LoginVC: UIViewController {
 		
 		performSegueWithIdentifier("RegisterSegue", sender: "emailButton")
 	}
+	
 }

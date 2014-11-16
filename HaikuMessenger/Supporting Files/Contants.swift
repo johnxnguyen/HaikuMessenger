@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 // PARSE OBJECT KEYS //
 
 let kFriendRequest = (	ClassKey: "FriendRequest",
