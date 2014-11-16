@@ -47,7 +47,7 @@ class LoginVC: UIViewController {
 		// FB user already logged in?
 		if userIsloggedIn {
 			// go straight to inbox
-			performSegueWithIdentifier("PageContainerSegue", sender: nil)
+			performSegueWithIdentifier("RevealViewControllerSegue", sender: nil)
 		}
 		
 	}
@@ -116,7 +116,7 @@ class LoginVC: UIViewController {
 			if error == nil {				
 				
 				// segue to inbox
-				self.performSegueWithIdentifier("PageContainerSegue", sender: nil)
+				self.performSegueWithIdentifier("RevealViewControllerSegue", sender: nil)
 				// go to root
 				//self.dismissViewControllerAnimated(true, completion: nil)
 				

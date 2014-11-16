@@ -14,6 +14,10 @@ class FriendCell: UITableViewCell {
 	//	MARK:               PROPERTIES & OUTLETS
 	// ------------------------------------------------------------------
 	
+	// ------------------------------------------------------------------
+	//	MARK:					STANDARD
+	// ------------------------------------------------------------------
+	
 	override func layoutSubviews() {
 		super.layoutSubviews()
 

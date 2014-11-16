@@ -36,6 +36,8 @@
 		EE3DD7C31A180D1500902642 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3DD7C21A180D1500902642 /* FriendCell.swift */; };
 		EE5048661A17A239001CD75D /* RootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5048651A17A239001CD75D /* RootVC.swift */; };
 		EE5E5C411A193CD300C5132B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5E5C401A193CD300C5132B /* SWRevealViewController.m */; };
+		EEBB4E091A194717008B8239 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB4E081A194717008B8239 /* MenuVC.swift */; };
+		EEBB4E0B1A194FB9008B8239 /* StandardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB4E0A1A194FB9008B8239 /* StandardCell.swift */; };
 		EEC2005E1A190C3700674B1D /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2005D1A190C3700674B1D /* HeaderView.swift */; };
 		EEC417221A153672000CD1AC /* PageContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC417211A153672000CD1AC /* PageContainerVC.swift */; };
 		EEC417241A15370B000CD1AC /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC417231A15370B000CD1AC /* RegisterVC.swift */; };
@@ -91,6 +93,8 @@
 		EE5048651A17A239001CD75D /* RootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootVC.swift; path = "View Controllers/RootVC.swift"; sourceTree = "<group>"; };
 		EE5E5C3F1A193CD300C5132B /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		EE5E5C401A193CD300C5132B /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		EEBB4E081A194717008B8239 /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuVC.swift; path = "View Controllers/MenuVC.swift"; sourceTree = "<group>"; };
+		EEBB4E0A1A194FB9008B8239 /* StandardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardCell.swift; path = Subclasses/StandardCell.swift; sourceTree = "<group>"; };
 		EEC2005D1A190C3700674B1D /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = Subclasses/HeaderView.swift; sourceTree = "<group>"; };
 		EEC417211A153672000CD1AC /* PageContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageContainerVC.swift; path = "View Controllers/PageContainerVC.swift"; sourceTree = "<group>"; };
 		EEC417231A15370B000CD1AC /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = "View Controllers/RegisterVC.swift"; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 				EE1041021A10AC5000E9CBFE /* Main.storyboard */,
 				EE1041421A10B2AD00E9CBFE /* View Controllers */,
 				EEC96A4E1A129275006B996E /* Subclasses */,
+				EEBB4E051A194398008B8239 /* Unused */,
 				EE1040F91A10AC5000E9CBFE /* Supporting Files */,
 			);
 			path = HaikuMessenger;
@@ -221,11 +226,10 @@
 			isa = PBXGroup;
 			children = (
 				EE5E5C3E1A193CD300C5132B /* SWRevealViewController */,
-				EE5048651A17A239001CD75D /* RootVC.swift */,
 				EE1041401A10B2A700E9CBFE /* LoginVC.swift */,
 				EEC417231A15370B000CD1AC /* RegisterVC.swift */,
-				EEC417211A153672000CD1AC /* PageContainerVC.swift */,
 				EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */,
+				EEBB4E081A194717008B8239 /* MenuVC.swift */,
 				EE3DD7C11A180AFF00902642 /* Friends */,
 			);
 			name = "View Controllers";
@@ -250,13 +254,23 @@
 			path = SWRevealViewController;
 			sourceTree = "<group>";
 		};
+		EEBB4E051A194398008B8239 /* Unused */ = {
+			isa = PBXGroup;
+			children = (
+				EEC2005D1A190C3700674B1D /* HeaderView.swift */,
+				EE5048651A17A239001CD75D /* RootVC.swift */,
+				EEC417211A153672000CD1AC /* PageContainerVC.swift */,
+			);
+			name = Unused;
+			sourceTree = "<group>";
+		};
 		EEC96A4E1A129275006B996E /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
 				EEC96A4C1A129270006B996E /* AddFriendTableCell.swift */,
 				EEE7B1FE1A13C017008FEE8E /* FriendRequestCell.swift */,
 				EE3DD7C21A180D1500902642 /* FriendCell.swift */,
-				EEC2005D1A190C3700674B1D /* HeaderView.swift */,
+				EEBB4E0A1A194FB9008B8239 /* StandardCell.swift */,
 			);
 			name = Subclasses;
 			sourceTree = "<group>";
@@ -372,12 +386,14 @@
 				EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */,
 				EE5048661A17A239001CD75D /* RootVC.swift in Sources */,
 				EEC417241A15370B000CD1AC /* RegisterVC.swift in Sources */,
+				EEBB4E0B1A194FB9008B8239 /* StandardCell.swift in Sources */,
 				EE5E5C411A193CD300C5132B /* SWRevealViewController.m in Sources */,
 				EE1041411A10B2A700E9CBFE /* LoginVC.swift in Sources */,
 				EE25CDD71A10E31B00FF95AB /* AddFriendVC.swift in Sources */,
 				EEC96A501A129891006B996E /* Contants.swift in Sources */,
 				EEE7B1FD1A13B9A6008FEE8E /* FriendRequestsVC.swift in Sources */,
 				EEC2005E1A190C3700674B1D /* HeaderView.swift in Sources */,
+				EEBB4E091A194717008B8239 /* MenuVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

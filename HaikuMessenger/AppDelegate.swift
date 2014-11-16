@@ -52,6 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			})
 		}
 		
+		// set up navbar
+		UINavigationBar.appearance().barTintColor = UIColor(red: 252/255.0, green: 95/255.0, blue: 95/255.0, alpha: 1.0)
+		UINavigationBar.appearance().titleTextAttributes = NSDictionary(objectsAndKeys: UIColor.whiteColor(), NSForegroundColorAttributeName, UIFont(name: "AvenirNext-Regular", size: 20)!, NSFontAttributeName)
+		
+		
+		
 		return true
 	}
 	

@@ -23,6 +23,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	// ------------------------------------------------------------------
 	//	MARK:               PROPERTIES & OUTLETS
 	// ------------------------------------------------------------------
+	@IBOutlet weak var sideBarButton: UIBarButtonItem!
 	
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var requestsButton: UIButton!
@@ -42,10 +43,18 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// set the side bar action, when tapped, show the side bar
+		sideBarButton.target = self.revealViewController()
+		sideBarButton.action = "revealToggle:"
+		sideBarButton.tintColor = UIColor.whiteColor()
+		
+		// set the gesture
+		self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+		
 		tableView.dataSource = self
 		tableView.delegate = self
 		
-		//tableView.registerClass(FriendCell.self, forCellReuseIdentifier: "FriendCell")
+		
 			
 		requestsButton.enabled = false
 		
