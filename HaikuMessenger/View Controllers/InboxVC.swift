@@ -14,7 +14,6 @@ class InboxVC: UIViewController {
 	//	MARK:               PROPERTIES & OUTLETS
 	// ------------------------------------------------------------------
 	
-	@IBOutlet weak var sideBarButton: UIBarButtonItem!
 	
 	
 	// ------------------------------------------------------------------
@@ -26,12 +25,17 @@ class InboxVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// set the side bar action, when tapped, show the side bar
-		sideBarButton.target = self.revealViewController()
-		sideBarButton.action = "revealToggle:"
-		sideBarButton.tintColor = UIColor.whiteColor()
+		// sets status bar to white (only for this VC)
+		//self.navigationController!.navigationBar.barStyle = UIBarStyle.Black
 		
-		// set the gesture
+		// set menu bar buttom item
+		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Menu"), style: .Plain, target: self.revealViewController(), action: "revealToggle:")
+		// set compose button item
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "composeButtonTapped:")
+		// set title
+		navigationItem.title = "Inbox"
+		
+		// set the gesture (swipe to reveal menu)
 		self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		
 	}
@@ -46,12 +50,11 @@ class InboxVC: UIViewController {
 	//	MARK:				  USER INTERFACE
 	// ------------------------------------------------------------------
 	
-	@IBAction func logOutButtonTapped(sender: UIButton) {
+	// COMPOSE BUTTON
+	//
+	func composeButtonTapped(sender: UIBarButtonItem) {
 		
-		PFUser.logOut()
-		
-		// go to login
-		dismissViewControllerAnimated(true, completion: nil)
+		println("Compose new haiku")
 	}
 
 }

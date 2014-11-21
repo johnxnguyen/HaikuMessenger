@@ -14,6 +14,8 @@
 
 
 import UIKit
+import CoreData
+
 
 class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 	
@@ -25,6 +27,7 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 	var facebookUser: Dictionary<String, AnyObject>?
 	var imageData = NSMutableData()
 	var profilePicture = UIImage(named: "defaultProfilePic")
+	let coreDataManager = CoreDataManager()
 	
 	// password text field constraints. Use to change priorities, determining which
 	// constraint is in effect
@@ -91,7 +94,6 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 			})
 			
 		} else {
-			
 			welcomeLabel.text = "Welcome!"
 		}
 	}
@@ -142,6 +144,9 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 							if error == nil {
 								println("Facebook user registration complete!")
 								
+								// save to store
+								self.coreDataManager.storeUser(user, withImage: profilePictureData)
+								
 								// go to login
 								self.navigationController!.popViewControllerAnimated(true)
 								
@@ -184,6 +189,9 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 						
 						println("Email user successfully registered!")
 						
+						// save to CoreData
+						self.coreDataManager.storeUser(PFUser.currentUser(), withImage: profilePictureData)
+						
 						// go to login
 						self.navigationController!.popViewControllerAnimated(true)
 						
@@ -197,9 +205,7 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 						self.navigationController!.popViewControllerAnimated(true)
 					}
 				})
-				
 			}
-			
 		}
 	}
 	
@@ -337,5 +343,5 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 		let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Ok")
 		alert.show()
 	}
-
+	
 }

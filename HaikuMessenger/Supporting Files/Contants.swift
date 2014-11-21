@@ -17,15 +17,27 @@ let kFriendRequest = (	ClassKey: "FriendRequest",
 					   StatusKey: "status",
 				  StatusAccepted: "accepted",
 				  StatusDeclined: "declined",
-				   StatusPending: "pending")
+				   StatusPending: "pending",
+					MarkedAsRead: "markedAsRead")
 
-let kNotification = (	ClassKey: "Notification",
-						  ToUser: "toUser",
-						 Message: "message",
-						StateKey: "state",
-					 StateActive: "active",
-				   StateInactive: "inactive")
+let kUserNotification = (	ClassKey: "UserNotification",
+							FromUser: "fromUser",
+							  ToUser: "toUser",
+							 Message: "message",
+						MarkedAsRead: "markedAsRead")
 
+let kSystemNotification = (	ClassKey: "SystemNotification",
+							FromUser: "fromUser",
+							  ToUser: "toUser",
+							 TypeKey: "type",
+			   TypeFriendRequestSent: "friendRequestSent",
+		   TypeFriendRequestAccepted: "friendRequestAccepted",
+			TypeFriendUpdatedProfile: "friendUpdatedProfile",
+				   TypeFriendDeleted: "friendDeleted",
+				 TypeBlockedByFriend: "blockedByFriend",
+			   TypeUnblockedByFriend: "unblockedByFriend",
+						MarkedAsRead: "markedAsRead")
+	
 let kUser = (			 Profile: "profile",
 					ProfilePhoto: "ProfilePhoto",
 						 Friends: "friends",

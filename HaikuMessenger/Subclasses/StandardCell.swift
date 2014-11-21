@@ -9,6 +9,13 @@
 import UIKit
 
 class StandardCell: UITableViewCell {
+	
+	// ------------------------------------------------------------------
+	//	MARK:               PROPERTIES & OUTLETS
+	// ------------------------------------------------------------------
+	
+	let imageScale: CGFloat = 0.5
+	let fontSize: CGFloat = 20
 
 	// ------------------------------------------------------------------
 	//	MARK:					  STANDARD
@@ -19,15 +26,15 @@ class StandardCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-		if selected == true {
-			backgroundColor = UIColor(white: 0.4, alpha: 1.0)
-		} else {
-			backgroundColor = UIColor.clearColor()
-		}
-    }
+//    override func setSelected(selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//
+//		if selected == true {
+//			backgroundColor = UIColor(white: 1.0, alpha: 0.2)
+//		} else {
+//			backgroundColor = UIColor.clearColor()
+//		}
+//    }
 	
 	override func layoutSubviews() {
 		super.layoutSubviews()
@@ -35,12 +42,12 @@ class StandardCell: UITableViewCell {
 		let size = self.contentView.frame.size
 		
 		// configure imageView
-		imageView.frame.size = CGSizeMake(size.height * 0.9, size.height * 0.9)
+		imageView.frame.size = CGSizeMake(size.height * imageScale, size.height * imageScale)
 		imageView.frame.origin.x = 25
 		imageView.center.y = self.contentView.center.y
 
 		// configure textLabel
-		textLabel.font = UIFont(name: "AvenirNext-Regular", size: 25)
+		textLabel.font = UIFont(name: "AvenirNext-Regular", size: fontSize)
 		
 		// space between imageView and label
 		let marginX = imageView.frame.origin.x + imageView.frame.width + 15

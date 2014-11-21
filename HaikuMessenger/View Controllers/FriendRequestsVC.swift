@@ -70,14 +70,59 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 		let request = requests[indexPath.row]
 		let fromUser = request[kFriendRequest.FromUser] as PFUser
 		
-		// ON MAIN THREAD!
-		fromUser.fetchIfNeeded()
+		// fetch (but what if it isn't needed?
+		fromUser.fetchIfNeededInBackgroundWithBlock {
+			(object: PFObject!, error: NSError!) -> Void in
+			
+			if error == nil {
+				cell.textLabel.text = fromUser.username
+			} else {
+				println("Error: \(error.userInfo!)")
+			}
+		}
 		
-		// configure cell
-		cell.textLabel.text = fromUser.username
+		
 		
 		return cell
 	}
+	
+	// ------------------------------------------------------------------
+	//	MARK:               TABLE VIEW DELEGATE
+	// ------------------------------------------------------------------
+	
+	// DID SELECT
+	//
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		
+		// auto accept friendship (THIS IS JUST FOR TESTING SO FAR)
+		let request = requests[indexPath.row]
+		request[kFriendRequest.StatusKey] = kFriendRequest.StatusAccepted
+		request[kFriendRequest.MarkedAsRead] = true
+		
+		request.saveInBackgroundWithBlock { (success: Bool!, error: NSError!) -> Void in
+			
+			if error == nil {
+				println("You have accepted a friend request")
+				
+				let friend = request[kFriendRequest.FromUser] as PFUser
+				
+				// store friend
+				let coreDataManager = CoreDataManager()
+				coreDataManager.storeFriend(friend, forUserWithID: PFUser.currentUser().objectId)
+				
+				// send notification
+				self.sendUserNotificationToUser(friend)
+				self.sendSystemNotificationToUser(friend)
+				
+				
+			} else {
+				println("Error: \(error.userInfo)")
+			}
+		}
+		
+		
+	}
+	
 	
 	// ------------------------------------------------------------------
 	//	MARK:					 HELPERS
@@ -91,6 +136,48 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 			requests = results as [PFObject]
 		} else {
 			println("Error: \(error.userInfo)")
+		}
+	}
+	
+	// SEND USER NOTIFICATION
+	//
+	func sendUserNotificationToUser(user: PFUser) {
+		
+		let fromUser = PFUser.currentUser()
+		
+		var notification = PFObject(className: kUserNotification.ClassKey)
+		notification[kUserNotification.FromUser] = fromUser
+		notification[kUserNotification.ToUser] = user
+		notification[kUserNotification.Message] = "\(fromUser.username) has accepted your friend request"
+		notification[kUserNotification.MarkedAsRead] = false
+		
+		notification.saveInBackgroundWithBlock({ (success: Bool!, error: NSError!) -> Void in
+			
+			if error == nil {
+				println("User Notification sent!")
+			} else {
+				println("Error: \(error.userInfo)")
+			}
+		})
+	}
+	
+	// SEND SYSTEM NOTIFICATION
+	//
+	func sendSystemNotificationToUser(user: PFUser) {
+		
+		var notification = PFObject(className: kSystemNotification.ClassKey)
+		notification[kSystemNotification.FromUser] = PFUser.currentUser()
+		notification[kSystemNotification.ToUser] = user
+		notification[kSystemNotification.TypeKey] = kSystemNotification.TypeFriendRequestAccepted
+		notification[kSystemNotification.MarkedAsRead] = false
+		
+		notification.saveInBackgroundWithBlock { (success: Bool!, error: NSError!) -> Void in
+			
+			if error == nil {
+				println("System Notification sent!")
+			} else {
+				println("Error: \(error.userInfo)")
+			}
 		}
 	}
 }

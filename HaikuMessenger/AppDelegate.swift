@@ -30,33 +30,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// optionally enable public read access, while disabling public write
 		defaultACL.setPublicReadAccess(true)
 		
+		// set public write only for certain objects!!!!!! fix this
+		defaultACL.setPublicWriteAccess(true)
+		
 		PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
 		
-		// generate users
-		//Factory.generateUsers()
 		
-		
-		// Facebook, check for cached session
+		// FACEBOOK
 		
 		// Whenever a person opens the app, check for a cached session
 		if FBSession.activeSession().state == FBSessionState.CreatedTokenLoaded {
 			
 			// If there's one, just open the session silently, without showing the user the login UI
-			FBSession.openActiveSessionWithReadPermissions(["publich_profile"], allowLoginUI: false, completionHandler: { (session: FBSession!, state: FBSessionState, error: NSError!) -> Void in
+			FBSession.openActiveSessionWithReadPermissions(["public_profile"], allowLoginUI: false, completionHandler: { (session: FBSession!, state: FBSessionState, error: NSError!) -> Void in
 				
 				// Handler for session state changes
 				// This method will be called EACH time the session state changes,
 				// also for intermediate states and NOT just when the session open
 				self.sessionStateChanged(session, state: state, error: error)
-
 			})
 		}
 		
+		// SYSTEM APPEARANCE
+		
 		// set up navbar
-		UINavigationBar.appearance().barTintColor = UIColor(red: 252/255.0, green: 95/255.0, blue: 95/255.0, alpha: 1.0)
+		UINavigationBar.appearance().barTintColor = UIColor(red: 229/255.0, green: 93/255.0, blue: 108/255.0, alpha: 1.0)
+		UINavigationBar.appearance().translucent = false
+			
+		// all nav bar titles
 		UINavigationBar.appearance().titleTextAttributes = NSDictionary(objectsAndKeys: UIColor.whiteColor(), NSForegroundColorAttributeName, UIFont(name: "AvenirNext-Regular", size: 20)!, NSFontAttributeName)
 		
+		// tint for all bar buttons
+		UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 		
+		// white status bars
+		UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+		
+		// UTILITY
+				
+		// reset coredata
+		//self.resetCoreData()
+		
+		// generate users
+		//Factory.generateUsers()
 		
 		return true
 	}
@@ -83,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidBecomeActive(application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+		
 		
 		// handler
 		FBAppCall.handleDidBecomeActive()
@@ -231,6 +248,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Ok")
 		alert.show()
+	}
+	
+	// RESET CORE DATA
+	//
+	func resetCoreData() {
+		
+		let storeUrl = self.applicationDocumentsDirectory.URLByAppendingPathComponent("HaikuMessenger.sqlite")
+		let fileManager = NSFileManager.defaultManager()
+		fileManager.removeItemAtURL(storeUrl, error: nil)
+		
+		managedObjectContext = nil
+		persistentStoreCoordinator = nil
 	}
 	
 }

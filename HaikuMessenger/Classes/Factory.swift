@@ -46,6 +46,11 @@ class Factory {
 				// success
 				if error == nil {
 					println("User successfully signed up: \(newUser.username)")
+					
+					// save to CoreData
+					let coreDataManager = CoreDataManager()
+					coreDataManager.storeUser(newUser, withImage: UIImageJPEGRepresentation(item.profilePic, 1.0))
+					
 				} else {
 					println(error)
 				}

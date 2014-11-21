@@ -45,7 +45,8 @@ class AddFriendVC: UIViewController, UISearchBarDelegate, UITableViewDataSource,
 		tableView.delegate = self
 		tableView.dataSource = self
 		
-		
+		// remove search bar border
+		searchBar.backgroundImage = UIImage()
 	}
 	
 	// MEMORY WARNING
@@ -57,14 +58,6 @@ class AddFriendVC: UIViewController, UISearchBarDelegate, UITableViewDataSource,
 	// ------------------------------------------------------------------
 	//	MARK:				  USER INTERFACE
 	// ------------------------------------------------------------------
-	
-	@IBAction func cancelButtonTapped(sender: UIButton) {
-		
-		dismissViewControllerAnimated(true, completion: nil)
-	}
-	
-	@IBAction func doneButtonTapped(sender: UIButton) {
-	}
 	
 	// CELL BUTTON
 	//
@@ -83,22 +76,6 @@ class AddFriendVC: UIViewController, UISearchBarDelegate, UITableViewDataSource,
 			
 			// sends friend request & notification
 			makeFriendRequest(requestedUser)
-			
-//			var me = PFUser.currentUser()
-			
-			// add as friend for me and them
-//			me.addObject(requestedUser, forKey: kUser.friends)
-//			me.saveInBackgroundWithBlock({ (success: Bool!, error: NSError!) -> Void in
-//				
-//				if error == nil {
-//					println("Successfully added friend: \(requestedUser.username)")
-//				} else {
-//					println("Error: \(error)")
-//				}
-//			})
-//			requestedUser.addObject(me, forKey: kUser.friends)
-//			requestedUser.saveInBackground()
-			
 		}
 		
 	}
@@ -182,23 +159,25 @@ class AddFriendVC: UIViewController, UISearchBarDelegate, UITableViewDataSource,
 	//
 	func makeFriendRequest(toUser: PFUser) {
 		
-		var request = PFObject(className: kFriendRequest.ClassKey)
-		request[kFriendRequest.FromUser] = PFUser.currentUser()
-		request[kFriendRequest.ToUser] = toUser
-		request[kFriendRequest.StatusKey] = kFriendRequest.StatusPending
+		var friendRequest = PFObject(className: kFriendRequest.ClassKey)
+		friendRequest[kFriendRequest.FromUser] = PFUser.currentUser()
+		friendRequest[kFriendRequest.ToUser] = toUser
+		friendRequest[kFriendRequest.StatusKey] = kFriendRequest.StatusPending
+		friendRequest[kFriendRequest.MarkedAsRead] = false
 		
-		request.saveInBackgroundWithBlock({
+		friendRequest.saveInBackgroundWithBlock({
 			(success: Bool!, error: NSError!) -> Void in
 			
 			if error == nil {
 				println("Request successfully made")
 				
 				// save friend request
-				PFUser.currentUser().addUniqueObject(request, forKey: kUser.FriendRequests)
+				PFUser.currentUser().addUniqueObject(friendRequest, forKey: kUser.FriendRequests)
 				PFUser.currentUser().saveInBackground()
 				
 				// notify receiver of request
-//				self.sendNotification(toUser)
+				self.sendUserNotification(toUser)
+				self.sendSystemNotification(toUser)
 				
 			} else {
 				println("Error: \(error)")
@@ -206,28 +185,47 @@ class AddFriendVC: UIViewController, UISearchBarDelegate, UITableViewDataSource,
 		})
 	}
 	
-	// SEND NOTIFICATION
+	// SEND USER NOTIFICATION
 	//
-//	func sendNotification(toUser: PFUser) {
-//		
-//		var notification = PFObject(className: kNotification.classKey)
-//		notification[kNotification.toUser] = toUser
-//		notification[kNotification.message] = "You have received a friend request from \(PFUser.currentUser().username)"
-//		notification[kNotification.stateKey] = kNotification.stateActive
-//		
-//		notification.saveInBackgroundWithBlock({
-//			(success: Bool!, error: NSError!) -> Void in
-//			
-//			if error == nil {
-//				println("A notification was sent to \(toUser.username)")
-//				
-//				// save notification
-//				toUser.addObject(notification, forKey: kUser.notifications)
-//				toUser.saveInBackground()
-//				
-//			} else {
-//				println("Error: \(error)")
-//			}
-//		})
-//	}
+	func sendUserNotification(toUser: PFUser) {
+		
+		var notification = PFObject(className: kUserNotification.ClassKey)
+		notification[kUserNotification.FromUser] = PFUser.currentUser()
+		notification[kUserNotification.ToUser] = toUser
+		notification[kUserNotification.Message] = "You have received a friend request from \(PFUser.currentUser().username)"
+		notification[kUserNotification.MarkedAsRead] = false
+		
+		
+		notification.saveInBackgroundWithBlock({
+			(success: Bool!, error: NSError!) -> Void in
+			
+			if error == nil {
+				println("A user notification was sent to \(toUser.username)")
+
+			} else {
+				println("Error: \(error.userInfo)")
+			}
+		})
+	}
+	
+	// SEND SYSTEM NOTIFICATION
+	//
+	func sendSystemNotification(toUser: PFUser) {
+		
+		var notification = PFObject(className: kSystemNotification.ClassKey)
+		notification[kSystemNotification.FromUser] = PFUser.currentUser()
+		notification[kSystemNotification.ToUser] = toUser
+		notification[kSystemNotification.TypeKey] = kSystemNotification.TypeFriendRequestSent
+		notification[kSystemNotification.MarkedAsRead] = false
+		
+		notification.saveInBackgroundWithBlock { (success: Bool!, error: NSError!) -> Void in
+			
+			if error == nil {
+				println("A system notificatoin was sent to \(toUser.username)")
+				
+			} else {
+				println("Error: \(error.userInfo)")
+			}
+		}
+	}
 }

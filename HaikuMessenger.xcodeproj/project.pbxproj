@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE00C78B1A1F8A9600884A02 /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE00C78A1A1F8A9600884A02 /* NotificationsVC.swift */; };
+		EE00C78F1A1F94A100884A02 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE00C78E1A1F94A100884A02 /* SettingsVC.swift */; };
 		EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */; };
 		EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */; };
 		EE1041041A10AC5000E9CBFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1041021A10AC5000E9CBFE /* Main.storyboard */; };
@@ -24,6 +26,8 @@
 		EE10412F1A10AE5D00E9CBFE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10412E1A10AE5D00E9CBFE /* StoreKit.framework */; };
 		EE1041311A10AE6500E9CBFE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1041301A10AE6500E9CBFE /* SystemConfiguration.framework */; };
 		EE1041411A10B2A700E9CBFE /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1041401A10B2A700E9CBFE /* LoginVC.swift */; };
+		EE2285621A1E6DA500B06BAC /* StoredFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2285611A1E6DA500B06BAC /* StoredFriend.swift */; };
+		EE2285641A1E6DA600B06BAC /* StoredUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2285631A1E6DA600B06BAC /* StoredUser.swift */; };
 		EE25CDCF1A10BE6100FF95AB /* InboxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */; };
 		EE25CDD31A10D91600FF95AB /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD21A10D91600FF95AB /* Factory.swift */; };
 		EE25CDD51A10DFF900FF95AB /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */; };
@@ -41,6 +45,7 @@
 		EEC2005E1A190C3700674B1D /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2005D1A190C3700674B1D /* HeaderView.swift */; };
 		EEC417221A153672000CD1AC /* PageContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC417211A153672000CD1AC /* PageContainerVC.swift */; };
 		EEC417241A15370B000CD1AC /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC417231A15370B000CD1AC /* RegisterVC.swift */; };
+		EEC4454E1A1E04F90053A44A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC4454D1A1E04F90053A44A /* CoreDataManager.swift */; };
 		EEC96A4D1A129270006B996E /* AddFriendTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC96A4C1A129270006B996E /* AddFriendTableCell.swift */; };
 		EEC96A501A129891006B996E /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC96A4F1A129891006B996E /* Contants.swift */; };
 		EEE7B1FD1A13B9A6008FEE8E /* FriendRequestsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE7B1FC1A13B9A6008FEE8E /* FriendRequestsVC.swift */; };
@@ -58,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE00C78A1A1F8A9600884A02 /* NotificationsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsVC.swift; path = "View Controllers/NotificationsVC.swift"; sourceTree = "<group>"; };
+		EE00C78E1A1F94A100884A02 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsVC.swift; path = "View Controllers/SettingsVC.swift"; sourceTree = "<group>"; };
 		EE1040F61A10AC5000E9CBFE /* HaikuMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaikuMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE1040FA1A10AC5000E9CBFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +87,8 @@
 		EE1041301A10AE6500E9CBFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EE10413B1A10AF3200E9CBFE /* Supporting Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Supporting Files"; sourceTree = "<group>"; };
 		EE1041401A10B2A700E9CBFE /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = "View Controllers/LoginVC.swift"; sourceTree = "<group>"; };
+		EE2285611A1E6DA500B06BAC /* StoredFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoredFriend.swift; path = Model/StoredFriend.swift; sourceTree = "<group>"; };
+		EE2285631A1E6DA600B06BAC /* StoredUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoredUser.swift; path = Model/StoredUser.swift; sourceTree = "<group>"; };
 		EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InboxVC.swift; path = "View Controllers/InboxVC.swift"; sourceTree = "<group>"; };
 		EE25CDD21A10D91600FF95AB /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Factory.swift; path = Classes/Factory.swift; sourceTree = "<group>"; };
 		EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendsVC.swift; path = "View Controllers/FriendsVC.swift"; sourceTree = "<group>"; };
@@ -98,6 +107,7 @@
 		EEC2005D1A190C3700674B1D /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = Subclasses/HeaderView.swift; sourceTree = "<group>"; };
 		EEC417211A153672000CD1AC /* PageContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageContainerVC.swift; path = "View Controllers/PageContainerVC.swift"; sourceTree = "<group>"; };
 		EEC417231A15370B000CD1AC /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = "View Controllers/RegisterVC.swift"; sourceTree = "<group>"; };
+		EEC4454D1A1E04F90053A44A /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = Classes/CoreDataManager.swift; sourceTree = "<group>"; };
 		EEC96A4C1A129270006B996E /* AddFriendTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFriendTableCell.swift; path = Subclasses/AddFriendTableCell.swift; sourceTree = "<group>"; };
 		EEC96A4F1A129891006B996E /* Contants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Contants.swift; path = "Supporting Files/Contants.swift"; sourceTree = "<group>"; };
 		EEE7B1FC1A13B9A6008FEE8E /* FriendRequestsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendRequestsVC.swift; path = "View Controllers/FriendRequestsVC.swift"; sourceTree = "<group>"; };
@@ -137,6 +147,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE00C78C1A1F935600884A02 /* Login & Registration */ = {
+			isa = PBXGroup;
+			children = (
+				EE1041401A10B2A700E9CBFE /* LoginVC.swift */,
+				EEC417231A15370B000CD1AC /* RegisterVC.swift */,
+			);
+			name = "Login & Registration";
+			sourceTree = "<group>";
+		};
+		EE00C78D1A1F938E00884A02 /* Main View Ctonrollers */ = {
+			isa = PBXGroup;
+			children = (
+				EEBB4E081A194717008B8239 /* MenuVC.swift */,
+				EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */,
+				EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */,
+				EE00C78A1A1F8A9600884A02 /* NotificationsVC.swift */,
+				EE00C78E1A1F94A100884A02 /* SettingsVC.swift */,
+			);
+			name = "Main View Ctonrollers";
+			sourceTree = "<group>";
+		};
 		EE1040ED1A10AC5000E9CBFE = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +192,7 @@
 			children = (
 				EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */,
 				EE1041021A10AC5000E9CBFE /* Main.storyboard */,
+				EE7ED14C1A1BCD4B0095FA05 /* Model */,
 				EE1041421A10B2AD00E9CBFE /* View Controllers */,
 				EEC96A4E1A129275006B996E /* Subclasses */,
 				EEBB4E051A194398008B8239 /* Unused */,
@@ -173,9 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				EE25CDD21A10D91600FF95AB /* Factory.swift */,
+				EEC4454D1A1E04F90053A44A /* CoreDataManager.swift */,
 				EEC96A4F1A129891006B996E /* Contants.swift */,
 				EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */,
-				EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */,
 				EE1040FA1A10AC5000E9CBFE /* Info.plist */,
 				EE1041051A10AC5000E9CBFE /* Images.xcassets */,
 				EE10413B1A10AF3200E9CBFE /* Supporting Files */,
@@ -226,10 +258,8 @@
 			isa = PBXGroup;
 			children = (
 				EE5E5C3E1A193CD300C5132B /* SWRevealViewController */,
-				EE1041401A10B2A700E9CBFE /* LoginVC.swift */,
-				EEC417231A15370B000CD1AC /* RegisterVC.swift */,
-				EE25CDCE1A10BE6100FF95AB /* InboxVC.swift */,
-				EEBB4E081A194717008B8239 /* MenuVC.swift */,
+				EE00C78C1A1F935600884A02 /* Login & Registration */,
+				EE00C78D1A1F938E00884A02 /* Main View Ctonrollers */,
 				EE3DD7C11A180AFF00902642 /* Friends */,
 			);
 			name = "View Controllers";
@@ -238,7 +268,6 @@
 		EE3DD7C11A180AFF00902642 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				EE25CDD41A10DFF900FF95AB /* FriendsVC.swift */,
 				EEE7B1FC1A13B9A6008FEE8E /* FriendRequestsVC.swift */,
 				EE25CDD61A10E31B00FF95AB /* AddFriendVC.swift */,
 			);
@@ -252,6 +281,16 @@
 				EE5E5C401A193CD300C5132B /* SWRevealViewController.m */,
 			);
 			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		EE7ED14C1A1BCD4B0095FA05 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */,
+				EE2285631A1E6DA600B06BAC /* StoredUser.swift */,
+				EE2285611A1E6DA500B06BAC /* StoredFriend.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		EEBB4E051A194398008B8239 /* Unused */ = {
@@ -378,12 +417,16 @@
 				EE25CDD51A10DFF900FF95AB /* FriendsVC.swift in Sources */,
 				EE25CDCF1A10BE6100FF95AB /* InboxVC.swift in Sources */,
 				EEC96A4D1A129270006B996E /* AddFriendTableCell.swift in Sources */,
+				EE2285641A1E6DA600B06BAC /* StoredUser.swift in Sources */,
 				EEC417221A153672000CD1AC /* PageContainerVC.swift in Sources */,
+				EE00C78F1A1F94A100884A02 /* SettingsVC.swift in Sources */,
 				EE3DD7C31A180D1500902642 /* FriendCell.swift in Sources */,
 				EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */,
 				EEE7B1FF1A13C017008FEE8E /* FriendRequestCell.swift in Sources */,
 				EE25CDD31A10D91600FF95AB /* Factory.swift in Sources */,
+				EE2285621A1E6DA500B06BAC /* StoredFriend.swift in Sources */,
 				EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */,
+				EEC4454E1A1E04F90053A44A /* CoreDataManager.swift in Sources */,
 				EE5048661A17A239001CD75D /* RootVC.swift in Sources */,
 				EEC417241A15370B000CD1AC /* RegisterVC.swift in Sources */,
 				EEBB4E0B1A194FB9008B8239 /* StandardCell.swift in Sources */,
@@ -394,6 +437,7 @@
 				EEE7B1FD1A13B9A6008FEE8E /* FriendRequestsVC.swift in Sources */,
 				EEC2005E1A190C3700674B1D /* HeaderView.swift in Sources */,
 				EEBB4E091A194717008B8239 /* MenuVC.swift in Sources */,
+				EE00C78B1A1F8A9600884A02 /* NotificationsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

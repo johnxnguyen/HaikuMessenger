@@ -23,14 +23,21 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	// ------------------------------------------------------------------
 	//	MARK:               PROPERTIES & OUTLETS
 	// ------------------------------------------------------------------
-	@IBOutlet weak var sideBarButton: UIBarButtonItem!
 	
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var requestsButton: UIButton!
 	
-	var friends: [PFUser] = [] {
+	var friends: [StoredFriend] = [] {
+
 		didSet {
 			tableView.reloadData()
+		}
+	}
+	
+	var newFriendRequestsCount: Int = 0 {
+		
+		didSet {
+			updateFriendRequestsButton()
 		}
 	}
 	
@@ -43,28 +50,36 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// set the side bar action, when tapped, show the side bar
-		sideBarButton.target = self.revealViewController()
-		sideBarButton.action = "revealToggle:"
-		sideBarButton.tintColor = UIColor.whiteColor()
-		
-		// set the gesture
-		self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-		
 		tableView.dataSource = self
 		tableView.delegate = self
 		
+		requestsButton.hidden = true
 		
-			
-		requestsButton.enabled = false
+		// set menu bar button item
+		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Menu"), style: .Plain, target: self.revealViewController(), action: "revealToggle:")
+		// set add bar button item
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addButtonTapped:")
+		// set title
+		navigationItem.title = "Friends"
 		
-		syncFriends()
+		// set the gesture (swipe to reveal menu)
+		self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+	}
+	
+	// VIEW WILL APPEAR
+	//
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
 		
+		// keep friend list synced
+		updateParseFriendsList()
 		
-		// get requests
-		let query = PFQuery(className: kFriendRequest.ClassKey)
-		query.whereKey(kFriendRequest.ToUser, equalTo: PFUser.currentUser())
-		query.countObjectsInBackgroundWithTarget(self, selector: "callbackWithResult:error:")
+		// get friends from store
+		let coreDataManager = CoreDataManager()
+		friends = coreDataManager.friendsForUserWithId(PFUser.currentUser().objectId)!
+		
+		// get new friend requests
+		countNewFriendRequests()
 	}
 	
 	// MEMORY WARNING
@@ -77,17 +92,17 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//	MARK:				  USER INTERFACE
 	// ------------------------------------------------------------------
 	
-	@IBAction func addBarButtonTapped(sender: UIButton) {
-		
-		performSegueWithIdentifier("AddFriendSegue", sender: nil)
-		
-	}
-	
 	@IBAction func showRequestsBarButtonTapped(sender: UIButton) {
 		
 		performSegueWithIdentifier("FriendRequestsSegue", sender: self)
 	}
 	
+	// ADD BAR BUTTON
+	//
+	func addButtonTapped(sender: UIBarButtonItem) {
+		
+		performSegueWithIdentifier("AddFriendSegue", sender: nil)
+	}
 	
 	// ------------------------------------------------------------------
 	//	MARK:             TABLE VIEW DATA SOURCE
@@ -112,19 +127,11 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		var cell = tableView.dequeueReusableCellWithIdentifier("FriendCell") as FriendCell
 		
 		let friend = friends[indexPath.row]
-		let imageData = friend[kUser.ProfilePhoto] as PFFile
-		
-		imageData.getDataInBackgroundWithBlock { (data: NSData!, error: NSError!) -> Void in
-			
-			if error == nil {
-				cell.imageView.image = UIImage(data: data)
-			}
-		}
 		
 		// configure cell
 		cell.textLabel.text = friend.username
+		cell.imageView.image = UIImage(data: friend.profileImage)
 		
-
 		return cell
 	}
 	
@@ -137,34 +144,52 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//	MARK:					 HELPERS
 	// ------------------------------------------------------------------
 	
-	// PFQUERY CALLBACK
+	// COUNT NEW FRIEND REQUESTS
 	//
-	func callbackWithResult(results: NSNumber!, error: NSError!) {
-		// success
-		if error == nil {
+	func countNewFriendRequests() {
+		
+		// friend requests for current user not yet seen
+		let query = PFQuery(className: kFriendRequest.ClassKey)
+		query.whereKey(kFriendRequest.ToUser, equalTo: PFUser.currentUser())
+		query.whereKey(kFriendRequest.MarkedAsRead, equalTo: false)
+		query.countObjectsInBackgroundWithBlock { (count: Int32, error: NSError!) -> Void in
 			
-			let number = results as Int
-			
-			if number > 0 {
-				requestsButton.enabled = true
+			if error == nil {
+				self.newFriendRequestsCount = Int(count)
 				
-				if results == 1 {
-					requestsButton.setTitle("\(number) Request", forState: UIControlState.Normal)
-				} else {
-					requestsButton.setTitle("\(number) Requests", forState: UIControlState.Normal)
-				}
 			} else {
-				requestsButton.enabled = false
+				println("Error: \(error.userInfo)")
 			}
-			
-		} else {
-			println("Error: \(error.userInfo)")
 		}
 	}
 	
-	// SYNC FRIENDS
+	// UPDATE FRIEND REQUEST BUTTON
 	//
-	func syncFriends() {
+	func updateFriendRequestsButton() {
+		
+		if newFriendRequestsCount > 0 {
+			
+			requestsButton.hidden = false
+			requestsButton.enabled = true
+			
+			if newFriendRequestsCount == 1 {
+				requestsButton.setTitle("\(newFriendRequestsCount) Request", forState: UIControlState.Normal)
+			} else {
+				requestsButton.setTitle("\(newFriendRequestsCount) Requests", forState: UIControlState.Normal)
+			}
+			
+		} else {
+			
+			requestsButton.hidden = true
+			requestsButton.enabled = false
+		}
+	}
+	
+	// UPDATE PARSE FRIENDS LIST
+	//
+	// fetch all accepted friends & add new to current user's friend property
+	//
+	func updateParseFriendsList() {
 		
 		// fetch all accepted friend requests to you
 		let query1 = PFQuery(className: kFriendRequest.ClassKey)
@@ -184,7 +209,6 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 			
 			if error == nil {
 				
-				
 				var approvedFriends: [PFUser] = []
 				
 				// for each friendRequest
@@ -203,18 +227,9 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 					}
 				}
 				
-				println("Number of approved friends: \(approvedFriends.count)")
-				
-				// store friends
-				//self.friends = approvedFriends
+				// store friends to current user
 				PFUser.currentUser().addUniqueObjectsFromArray(approvedFriends, forKey: kUser.Friends)
-				PFUser.currentUser().saveInBackgroundWithBlock({ (success: Bool!, error: NSError!) -> Void in
-					
-					if error == nil {
-						
-						self.fetchFriendDataIfNeeded()
-					}
-				})
+				PFUser.currentUser().saveInBackground()
 				
 			} else {
 				println("Error: \(error.userInfo)")
@@ -222,31 +237,5 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 			
 		}
 	}
-	
-	// FETCH FRIEND DATA IF NEEDED
-	//
-	func fetchFriendDataIfNeeded() {
-		
-		// get friends list if needed
-		if friends.isEmpty {
-			// safeguard against empty property
-			let objects: AnyObject? = PFUser.currentUser().objectForKey(kUser.Friends)
-			
-			if objects != nil {
-				
-				PFUser.fetchAllInBackground(objects as [PFUser], block: {
-					(fetchedObjects: [AnyObject]!, error: NSError!) -> Void in
-					
-					if error == nil {
-						self.friends = fetchedObjects as [PFUser]
-	
-					} else {
-						println("Error: \(error.userInfo)")
-					}
-				})
-			}
-		}
-	}
-	
 	
 }

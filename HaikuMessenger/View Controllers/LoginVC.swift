@@ -15,6 +15,7 @@
 
 
 import UIKit
+import CoreData
 
 class LoginVC: UIViewController {
 	
@@ -37,6 +38,9 @@ class LoginVC: UIViewController {
 	//
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		let coreDataManager = CoreDataManager()
+		coreDataManager.printAllUsers()
 	}
 	
 	// VIEW DID APPEAR
@@ -49,7 +53,6 @@ class LoginVC: UIViewController {
 			// go straight to inbox
 			performSegueWithIdentifier("RevealViewControllerSegue", sender: nil)
 		}
-		
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -113,13 +116,9 @@ class LoginVC: UIViewController {
 			(user: PFUser!, error: NSError!) -> Void in
 			
 			// success
-			if error == nil {				
-				
+			if error == nil {
 				// segue to inbox
 				self.performSegueWithIdentifier("RevealViewControllerSegue", sender: nil)
-				// go to root
-				//self.dismissViewControllerAnimated(true, completion: nil)
-				
 				
 			} else {
 				// error
@@ -152,7 +151,6 @@ class LoginVC: UIViewController {
 			
 			// Call the app delegate's sessionStateChanged:state:error method to handle session state changes
 			appDelegate.sessionStateChanged(session, state: state, error: error)
-			
 		})
 	}
 	
