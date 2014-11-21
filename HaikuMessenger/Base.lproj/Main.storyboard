@@ -805,13 +805,13 @@
                                 <exclude reference="jp0-oC-gZY"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="glc-iW-hcb"/>
                                 <exclude reference="H2N-t0-rxT"/>
                                 <exclude reference="ig2-Td-wSf"/>
                                 <exclude reference="oDG-iu-6Yf"/>
                                 <exclude reference="io5-KY-TyL"/>
                                 <exclude reference="oBE-Zj-N70"/>
                                 <exclude reference="wxp-NN-bQ8"/>
-                                <exclude reference="glc-iW-hcb"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -820,13 +820,13 @@
                                 <include reference="jp0-oC-gZY"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="glc-iW-hcb"/>
                                 <include reference="H2N-t0-rxT"/>
                                 <include reference="ig2-Td-wSf"/>
                                 <include reference="oDG-iu-6Yf"/>
                                 <include reference="io5-KY-TyL"/>
                                 <include reference="oBE-Zj-N70"/>
                                 <include reference="wxp-NN-bQ8"/>
-                                <include reference="glc-iW-hcb"/>
                             </mask>
                         </variation>
                     </view>
@@ -925,6 +925,7 @@
                         <viewControllerLayoutGuide type="bottom" id="k9O-65-asF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="R6s-mx-dlE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZOC-Jy-tdM">
@@ -963,10 +964,10 @@
                                 <exclude reference="ZOC-Jy-tdM"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="fd1-3c-Z41"/>
                                 <exclude reference="MbB-hd-J98"/>
                                 <exclude reference="QkT-PE-bqt"/>
                                 <exclude reference="xHf-vM-wmD"/>
-                                <exclude reference="fd1-3c-Z41"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -974,10 +975,10 @@
                                 <include reference="ZOC-Jy-tdM"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="fd1-3c-Z41"/>
                                 <include reference="MbB-hd-J98"/>
                                 <include reference="QkT-PE-bqt"/>
                                 <include reference="xHf-vM-wmD"/>
-                                <include reference="fd1-3c-Z41"/>
                             </mask>
                         </variation>
                     </view>
@@ -998,6 +999,7 @@
                         <viewControllerLayoutGuide type="bottom" id="leq-MX-Dxf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Lcv-yQ-IQq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1176,7 +1178,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="At8-rY-rXW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1857" y="51"/>
+            <point key="canvasLocation" x="1590" y="51"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jz8-2k-b0M">
