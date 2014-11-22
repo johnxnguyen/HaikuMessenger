@@ -59,7 +59,7 @@ class LoginVC: UIViewController {
 		super.viewWillAppear(animated)
 		
 		// if already logged in
-		if PFUser.currentUser() != nil && PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()) {
+		if PFUser.currentUser() != nil {
 			
 			// hide all UI elements to smooth auto segue to inbox
 			containerView.hidden = true

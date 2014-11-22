@@ -15,9 +15,10 @@
 
 import UIKit
 import CoreData
+import MobileCoreServices
 
 
-class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
+class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 	
 	// ------------------------------------------------------------------
 	//	MARK:               PROPERTIES & OUTLETS
@@ -26,7 +27,12 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 	var facebookLogin: Bool!
 	var facebookUser: Dictionary<String, AnyObject>?
 	var imageData = NSMutableData()
-	var profilePicture = UIImage(named: "defaultProfilePic")
+	
+	var profilePicture: UIImage = UIImage(named: "defaultProfilePic")! {
+		didSet {
+			imageView.image = profilePicture
+		}
+	}
 	let coreDataManager = CoreDataManager()
 	
 	// password text field constraints. Use to change priorities, determining which
@@ -135,7 +141,9 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 						user.email = self.facebookUser!["email"] as String
 						
 						// image
-						let profilePictureData = UIImageJPEGRepresentation(self.profilePicture!, 1.0)
+						let thumbnail = self.thumbnailFromImage(self.profilePicture)
+						let profilePictureData = UIImageJPEGRepresentation(thumbnail, 1.0)
+						
 						user[kUser.ProfilePhoto] = PFFile(data: profilePictureData)
 						
 						// save user
@@ -146,6 +154,9 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 								
 								// save to store
 								self.coreDataManager.storeUser(user, withImage: profilePictureData)
+								
+								// prevents skipping login page
+								PFUser.logOut()
 								
 								// go to login
 								self.navigationController!.popViewControllerAnimated(true)
@@ -179,7 +190,9 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 				emailUser.password = passwordTextField.text
 				emailUser.email = emailTextField.text
 				
-				let profilePictureData = UIImageJPEGRepresentation(profilePicture, 1.0)
+				
+				let thumbnail = thumbnailFromImage(profilePicture)
+				let profilePictureData = UIImageJPEGRepresentation(thumbnail, 1.0)
 				emailUser[kUser.ProfilePhoto] = PFFile(data: profilePictureData)
 				
 				// save user
@@ -191,6 +204,9 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 						
 						// save to CoreData
 						self.coreDataManager.storeUser(PFUser.currentUser(), withImage: profilePictureData)
+						
+						// prevents skipping login page
+						PFUser.logOut()
 						
 						// go to login
 						self.navigationController!.popViewControllerAnimated(true)
@@ -225,6 +241,43 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 		self.navigationController!.popViewControllerAnimated(true)
 	}
 	
+	@IBAction func editImageButtonTapped(sender: UIButton) {
+		
+		// if camera is available
+		if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+			
+			var cameraController = UIImagePickerController()
+			
+			// set up controller
+			cameraController.delegate = self
+			cameraController.sourceType = UIImagePickerControllerSourceType.Camera
+			let mediaTypes: [AnyObject] = [kUTTypeImage]
+			cameraController.mediaTypes = mediaTypes
+			cameraController.allowsEditing = false
+			
+			presentViewController(cameraController, animated: true, completion: nil)
+			
+		} else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+			
+			var photoLibraryController = UIImagePickerController()
+			
+			// set up controller
+			photoLibraryController.delegate = self
+			photoLibraryController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+			let mediaTypes: [AnyObject] = [kUTTypeImage]
+			photoLibraryController.mediaTypes = mediaTypes
+			photoLibraryController.allowsEditing = false
+			
+			presentViewController(photoLibraryController, animated: true, completion: nil)
+			
+		} else {
+			
+			// alert user
+			alertUser("Oh no!", message: "Your device does not support the camera or photo library")
+		}
+	}
+	
+	
 	// ------------------------------------------------------------------
 	//	MARK:           NSURL CONNECTION DATA DELEGATE
 	// ------------------------------------------------------------------
@@ -242,10 +295,23 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 	func connectionDidFinishLoading(connection: NSURLConnection) {
 		
 		// display profile picture
-		profilePicture = UIImage(data: imageData)
+		profilePicture = UIImage(data: imageData)!
 		imageView.image = profilePicture
 	}
 	
+	// ------------------------------------------------------------------
+	//	MARK:          IMAGE PICKER CONTROLLER DELEGATE
+	// ------------------------------------------------------------------
+	
+	// DID FINISH PICKING MEDIA
+	//
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+		
+		// set image view
+		let image = info[UIImagePickerControllerOriginalImage] as UIImage
+		profilePicture = image
+		dismissViewControllerAnimated(true, completion: nil)
+	}
 	
 	// ------------------------------------------------------------------
 	//	MARK:					 HELPERS
@@ -264,6 +330,18 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate {
 			println("Error: Failed to download profile image")
 		}
 		
+	}
+	
+	// THUMBNAIL FROM IMAGE (150 x 150)
+	//
+	func thumbnailFromImage(image: UIImage) -> UIImage {
+		
+		let size = CGSizeMake(150, 150)
+		UIGraphicsBeginImageContext(size)
+		image.drawInRect(CGRectMake(0, 0, size.width, size.height))
+		let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		return thumbnail
 	}
 	
 	// IS VALID EMAIL

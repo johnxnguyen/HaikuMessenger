@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		PFFacebookUtils.initializeFacebook()
 		
 		// security measures
-		PFUser.enableAutomaticUser()
+		// enables anonymous users, but after logout currentUser will still have a value
+		//PFUser.enableAutomaticUser()
 		var defaultACL = PFACL()
 		
 		// optionally enable public read access, while disabling public write
