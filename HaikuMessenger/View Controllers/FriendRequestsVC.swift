@@ -80,9 +80,7 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 				println("Error: \(error.userInfo!)")
 			}
 		}
-		
-		
-		
+
 		return cell
 	}
 	
@@ -106,9 +104,20 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 				
 				let friend = request[kFriendRequest.FromUser] as PFUser
 				
-				// store friend
-				let coreDataManager = CoreDataManager()
-				coreDataManager.storeFriend(friend, forUserWithID: PFUser.currentUser().objectId)
+				let imageData = friend[kUser.ProfilePhoto] as PFFile
+				imageData.getDataInBackgroundWithBlock({ (data: NSData!, error: NSError!) -> Void in
+					
+					if error == nil {
+						
+						// store friend to CoreData
+						let coreDataManager = CoreDataManager()
+						coreDataManager.storeFriend(friend, forUserWithID: PFUser.currentUser().objectId)
+						
+					} else {
+						println("Error: \(error.userInfo)")
+					}
+				})
+				
 				
 				// send notification
 				self.sendUserNotificationToUser(friend)

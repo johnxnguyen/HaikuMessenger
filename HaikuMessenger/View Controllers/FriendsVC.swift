@@ -18,6 +18,7 @@
 
 import UIKit
 
+
 class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
 	// ------------------------------------------------------------------
@@ -27,7 +28,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var requestsButton: UIButton!
 	
-	var friends: [StoredFriend] = [] {
+	var friends: [StoredFriend]? {
 
 		didSet {
 			tableView.reloadData()
@@ -77,6 +78,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		// get friends from store
 		let coreDataManager = CoreDataManager()
 		friends = coreDataManager.friendsForUserWithId(PFUser.currentUser().objectId)!
+		println("friends.count: \(friends!.count)")
 		
 		// get new friend requests
 		countNewFriendRequests()
@@ -117,7 +119,8 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	// NUMBER OF ROWS
 	//
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return friends.count
+		
+		return friends!.count
 	}
 	
 	// CELL FOR ROW
@@ -126,7 +129,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		
 		var cell = tableView.dequeueReusableCellWithIdentifier("FriendCell") as FriendCell
 		
-		let friend = friends[indexPath.row]
+		let friend = friends![indexPath.row]
 		
 		// configure cell
 		cell.textLabel.text = friend.username

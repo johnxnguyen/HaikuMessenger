@@ -38,9 +38,6 @@ class LoginVC: UIViewController {
 	//
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		let coreDataManager = CoreDataManager()
-		coreDataManager.printAllUsers()
 	}
 	
 	// VIEW DID APPEAR

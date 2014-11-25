@@ -11,7 +11,7 @@
 		EE00C78B1A1F8A9600884A02 /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE00C78A1A1F8A9600884A02 /* NotificationsVC.swift */; };
 		EE00C78F1A1F94A100884A02 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE00C78E1A1F94A100884A02 /* SettingsVC.swift */; };
 		EE1040FC1A10AC5000E9CBFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */; };
-		EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */; };
+		EE1040FF1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE1040FD1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodeld */; settings = {COMPILER_FLAGS = HaikuMessenger/Model; }; };
 		EE1041041A10AC5000E9CBFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1041021A10AC5000E9CBFE /* Main.storyboard */; };
 		EE1041061A10AC5000E9CBFE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE1041051A10AC5000E9CBFE /* Images.xcassets */; };
 		EE1041091A10AC5000E9CBFE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */; };
@@ -41,9 +41,16 @@
 		EE3DD7C31A180D1500902642 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3DD7C21A180D1500902642 /* FriendCell.swift */; };
 		EE4AB5421A210FC60000E2C9 /* ComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4AB5411A210FC60000E2C9 /* ComposeVC.swift */; };
 		EE5E5C411A193CD300C5132B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5E5C401A193CD300C5132B /* SWRevealViewController.m */; };
-		EEA46D111A24A6C600A0E414 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA46D101A24A6C600A0E414 /* libc++.dylib */; };
-		EEA46D151A24A77E00A0E414 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA46D141A24A77E00A0E414 /* RLMSupport.swift */; };
-		EEA46D171A24A78800A0E414 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA46D161A24A78800A0E414 /* Realm.framework */; };
+		EEA46D241A24A9D100A0E414 /* photo01.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D1A1A24A9D100A0E414 /* photo01.png */; };
+		EEA46D251A24A9D100A0E414 /* photo02.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D1B1A24A9D100A0E414 /* photo02.png */; };
+		EEA46D261A24A9D100A0E414 /* photo03.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D1C1A24A9D100A0E414 /* photo03.png */; };
+		EEA46D271A24A9D100A0E414 /* photo04.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D1D1A24A9D100A0E414 /* photo04.png */; };
+		EEA46D281A24A9D100A0E414 /* photo05.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D1E1A24A9D100A0E414 /* photo05.png */; };
+		EEA46D291A24A9D100A0E414 /* photo06.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D1F1A24A9D100A0E414 /* photo06.png */; };
+		EEA46D2A1A24A9D100A0E414 /* photo07.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D201A24A9D100A0E414 /* photo07.png */; };
+		EEA46D2B1A24A9D100A0E414 /* photo08.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D211A24A9D100A0E414 /* photo08.png */; };
+		EEA46D2C1A24A9D100A0E414 /* photo09.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D221A24A9D100A0E414 /* photo09.png */; };
+		EEA46D2D1A24A9D100A0E414 /* photo10.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA46D231A24A9D100A0E414 /* photo10.png */; };
 		EEBB4E091A194717008B8239 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB4E081A194717008B8239 /* MenuVC.swift */; };
 		EEBB4E0B1A194FB9008B8239 /* StandardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB4E0A1A194FB9008B8239 /* StandardCell.swift */; };
 		EEC417221A153672000CD1AC /* PageContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC417211A153672000CD1AC /* PageContainerVC.swift */; };
@@ -72,7 +79,7 @@
 		EE00C78A1A1F8A9600884A02 /* NotificationsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsVC.swift; path = "View Controllers/NotificationsVC.swift"; sourceTree = "<group>"; };
 		EE00C78E1A1F94A100884A02 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsVC.swift; path = "View Controllers/SettingsVC.swift"; sourceTree = "<group>"; };
 		EE1040F61A10AC5000E9CBFE /* HaikuMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaikuMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE1040FA1A10AC5000E9CBFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE1040FA1A10AC5000E9CBFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		EE1040FB1A10AC5000E9CBFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE1040FE1A10AC5000E9CBFE /* HaikuMessenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HaikuMessenger.xcdatamodel; sourceTree = "<group>"; };
 		EE1041031A10AC5000E9CBFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,7 +98,6 @@
 		EE10412C1A10AE5600E9CBFE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EE10412E1A10AE5D00E9CBFE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EE1041301A10AE6500E9CBFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		EE10413B1A10AF3200E9CBFE /* Supporting Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Supporting Files"; sourceTree = "<group>"; };
 		EE1041401A10B2A700E9CBFE /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = "View Controllers/LoginVC.swift"; sourceTree = "<group>"; };
 		EE2285611A1E6DA500B06BAC /* StoredFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoredFriend.swift; path = Model/StoredFriend.swift; sourceTree = "<group>"; };
 		EE2285631A1E6DA600B06BAC /* StoredUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoredUser.swift; path = Model/StoredUser.swift; sourceTree = "<group>"; };
@@ -109,8 +115,17 @@
 		EE5E5C3F1A193CD300C5132B /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		EE5E5C401A193CD300C5132B /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		EEA46D101A24A6C600A0E414 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		EEA46D141A24A77E00A0E414 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
-		EEA46D161A24A78800A0E414 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		EEA46D181A24A9C000A0E414 /* HaikuMessenger-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "HaikuMessenger-Bridging-Header.h"; path = "/Users/johnnguyen/Documents/PROJECTS/XCode/Projects/HaikuMessenger/HaikuMessenger/HaikuMessenger-Bridging-Header.h"; sourceTree = "<absolute>"; };
+		EEA46D1A1A24A9D100A0E414 /* photo01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo01.png; sourceTree = "<group>"; };
+		EEA46D1B1A24A9D100A0E414 /* photo02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo02.png; sourceTree = "<group>"; };
+		EEA46D1C1A24A9D100A0E414 /* photo03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo03.png; sourceTree = "<group>"; };
+		EEA46D1D1A24A9D100A0E414 /* photo04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo04.png; sourceTree = "<group>"; };
+		EEA46D1E1A24A9D100A0E414 /* photo05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo05.png; sourceTree = "<group>"; };
+		EEA46D1F1A24A9D100A0E414 /* photo06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo06.png; sourceTree = "<group>"; };
+		EEA46D201A24A9D100A0E414 /* photo07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo07.png; sourceTree = "<group>"; };
+		EEA46D211A24A9D100A0E414 /* photo08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo08.png; sourceTree = "<group>"; };
+		EEA46D221A24A9D100A0E414 /* photo09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo09.png; sourceTree = "<group>"; };
+		EEA46D231A24A9D100A0E414 /* photo10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo10.png; sourceTree = "<group>"; };
 		EEBB4E081A194717008B8239 /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuVC.swift; path = "View Controllers/MenuVC.swift"; sourceTree = "<group>"; };
 		EEBB4E0A1A194FB9008B8239 /* StandardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardCell.swift; path = Subclasses/StandardCell.swift; sourceTree = "<group>"; };
 		EEC417211A153672000CD1AC /* PageContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageContainerVC.swift; path = "View Controllers/PageContainerVC.swift"; sourceTree = "<group>"; };
@@ -118,6 +133,7 @@
 		EEC4454D1A1E04F90053A44A /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = Classes/CoreDataManager.swift; sourceTree = "<group>"; };
 		EEC96A4C1A129270006B996E /* AddFriendTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFriendTableCell.swift; path = Subclasses/AddFriendTableCell.swift; sourceTree = "<group>"; };
 		EEC96A4F1A129891006B996E /* Contants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Contants.swift; path = "Supporting Files/Contants.swift"; sourceTree = "<group>"; };
+		EEE3525C1A24C24B0064C84B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = HaikuMessenger/Frameworks/Realm.framework; sourceTree = "<group>"; };
 		EEE7B1FC1A13B9A6008FEE8E /* FriendRequestsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendRequestsVC.swift; path = "View Controllers/FriendRequestsVC.swift"; sourceTree = "<group>"; };
 		EEE7B1FE1A13C017008FEE8E /* FriendRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendRequestCell.swift; path = Subclasses/FriendRequestCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,8 +143,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEA46D171A24A78800A0E414 /* Realm.framework in Frameworks */,
-				EEA46D111A24A6C600A0E414 /* libc++.dylib in Frameworks */,
 				EE3DD7BF1A17FAEC00902642 /* ParseFacebookUtils.framework in Frameworks */,
 				EE1041311A10AE6500E9CBFE /* SystemConfiguration.framework in Frameworks */,
 				EE10412F1A10AE5D00E9CBFE /* StoreKit.framework in Frameworks */,
@@ -226,14 +240,14 @@
 		EE1040F91A10AC5000E9CBFE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EEA46D141A24A77E00A0E414 /* RLMSupport.swift */,
+				EEA46D181A24A9C000A0E414 /* HaikuMessenger-Bridging-Header.h */,
 				EE25CDD21A10D91600FF95AB /* Factory.swift */,
 				EEC4454D1A1E04F90053A44A /* CoreDataManager.swift */,
 				EEC96A4F1A129891006B996E /* Contants.swift */,
 				EE1041071A10AC5000E9CBFE /* LaunchScreen.xib */,
 				EE1040FA1A10AC5000E9CBFE /* Info.plist */,
+				EEA46D191A24A9D100A0E414 /* Profile Pics */,
 				EE1041051A10AC5000E9CBFE /* Images.xcassets */,
-				EE10413B1A10AF3200E9CBFE /* Supporting Files */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -258,7 +272,7 @@
 		EE1041321A10AE7B00E9CBFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EEA46D161A24A78800A0E414 /* Realm.framework */,
+				EEE3525C1A24C24B0064C84B /* Realm.framework */,
 				EEA46D101A24A6C600A0E414 /* libc++.dylib */,
 				EE3DD7B71A17FAEC00902642 /* Bolts.framework */,
 				EE3DD7B81A17FAEC00902642 /* FacebookSDK.framework */,
@@ -317,6 +331,24 @@
 				EE2285611A1E6DA500B06BAC /* StoredFriend.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		EEA46D191A24A9D100A0E414 /* Profile Pics */ = {
+			isa = PBXGroup;
+			children = (
+				EEA46D1A1A24A9D100A0E414 /* photo01.png */,
+				EEA46D1B1A24A9D100A0E414 /* photo02.png */,
+				EEA46D1C1A24A9D100A0E414 /* photo03.png */,
+				EEA46D1D1A24A9D100A0E414 /* photo04.png */,
+				EEA46D1E1A24A9D100A0E414 /* photo05.png */,
+				EEA46D1F1A24A9D100A0E414 /* photo06.png */,
+				EEA46D201A24A9D100A0E414 /* photo07.png */,
+				EEA46D211A24A9D100A0E414 /* photo08.png */,
+				EEA46D221A24A9D100A0E414 /* photo09.png */,
+				EEA46D231A24A9D100A0E414 /* photo10.png */,
+			);
+			name = "Profile Pics";
+			path = "Supporting Files/Profile Pics";
 			sourceTree = "<group>";
 		};
 		EEBB4E051A194398008B8239 /* Unused */ = {
@@ -421,8 +453,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE1041041A10AC5000E9CBFE /* Main.storyboard in Resources */,
+				EEA46D271A24A9D100A0E414 /* photo04.png in Resources */,
+				EEA46D241A24A9D100A0E414 /* photo01.png in Resources */,
+				EEA46D251A24A9D100A0E414 /* photo02.png in Resources */,
+				EEA46D261A24A9D100A0E414 /* photo03.png in Resources */,
+				EEA46D2B1A24A9D100A0E414 /* photo08.png in Resources */,
+				EEA46D281A24A9D100A0E414 /* photo05.png in Resources */,
+				EEA46D291A24A9D100A0E414 /* photo06.png in Resources */,
+				EEA46D2A1A24A9D100A0E414 /* photo07.png in Resources */,
+				EEA46D2C1A24A9D100A0E414 /* photo09.png in Resources */,
 				EE1041091A10AC5000E9CBFE /* LaunchScreen.xib in Resources */,
 				EE1041061A10AC5000E9CBFE /* Images.xcassets in Resources */,
+				EEA46D2D1A24A9D100A0E414 /* photo10.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,7 +534,6 @@
 				EE1041411A10B2A700E9CBFE /* LoginVC.swift in Sources */,
 				EE25CDD71A10E31B00FF95AB /* AddFriendVC.swift in Sources */,
 				EEC96A501A129891006B996E /* Contants.swift in Sources */,
-				EEA46D151A24A77E00A0E414 /* RLMSupport.swift in Sources */,
 				EEE7B1FD1A13B9A6008FEE8E /* FriendRequestsVC.swift in Sources */,
 				EE4AB5421A210FC60000E2C9 /* ComposeVC.swift in Sources */,
 				EEBB4E091A194717008B8239 /* MenuVC.swift in Sources */,
@@ -628,7 +669,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HaikuMessenger/Frameworks",
 				);
-				INFOPLIST_FILE = HaikuMessenger/Info.plist;
+				INFOPLIST_FILE = "/Users/johnnguyen/Documents/PROJECTS/XCode/Projects/HaikuMessenger/HaikuMessenger/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-l\"Pods-HaikuMessenger-JSQMessagesViewController\"",
@@ -643,7 +684,7 @@
 					"\"UIKit\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/johnnguyen/Documents/PROJECTS/XCode/Projects/HaikuMessenger/HaikuMessenger/Supporting Files/HaikuMessenger-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/johnnguyen/Documents/PROJECTS/XCode/Projects/HaikuMessenger/HaikuMessenger/HaikuMessenger-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -659,7 +700,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HaikuMessenger/Frameworks",
 				);
-				INFOPLIST_FILE = HaikuMessenger/Info.plist;
+				INFOPLIST_FILE = "/Users/johnnguyen/Documents/PROJECTS/XCode/Projects/HaikuMessenger/HaikuMessenger/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-l\"Pods-HaikuMessenger-JSQMessagesViewController\"",
@@ -674,7 +715,7 @@
 					"\"UIKit\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/johnnguyen/Documents/PROJECTS/XCode/Projects/HaikuMessenger/HaikuMessenger/Supporting Files/HaikuMessenger-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/johnnguyen/Documents/PROJECTS/XCode/Projects/HaikuMessenger/HaikuMessenger/HaikuMessenger-Bridging-Header.h";
 			};
 			name = Release;
 		};

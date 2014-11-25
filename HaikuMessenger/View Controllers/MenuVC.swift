@@ -11,9 +11,12 @@
 //	- If row is selected, dont allow to reload view. Simply go back
 //	to the open view
 //
+//	- batch friend adds. gather and sort all notifications first
+//
 //	--------------------------------------------------------------
 
 import UIKit
+
 
 class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
@@ -50,7 +53,6 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		tableView.tableFooterView = UIView(frame: CGRectZero)
 		
 		loadUserProfileUI()
-		
     }
 	
 	override func viewDidAppear(animated: Bool) {
@@ -225,8 +227,6 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//
 	func checkForSystemNotifications() {
 		
-		let coreDataManager = CoreDataManager()
-		
 		let query = PFQuery(className: kSystemNotification.ClassKey)
 		query.whereKey(kSystemNotification.ToUser, equalTo: PFUser.currentUser())
 		query.whereKey(kSystemNotification.MarkedAsRead, equalTo: false)
@@ -257,6 +257,8 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 						// the user who accepted your request
 						let friend = notification[kSystemNotification.FromUser] as PFUser
 						
+						let coreDataManager = CoreDataManager()
+						
 						// store friend to CoreData
 						if coreDataManager.storeFriend(friend, forUserWithID: PFUser.currentUser().objectId) == true {
 							
@@ -274,7 +276,6 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 						} else {
 							println("Failed to store friend")
 						}
-						
 						
 					case kSystemNotification.TypeFriendUpdatedProfile:
 						println("A friend has updated their profile")
@@ -305,19 +306,15 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//
 	func loadUserProfileUI() {
 		
-		usernameLabel.text = PFUser.currentUser().username
+		let coreDataManager = CoreDataManager()
+		let currentUser = coreDataManager.userForId(PFUser.currentUser().objectId)
 		
-		let imageData = PFUser.currentUser()[kUser.ProfilePhoto] as PFFile
-		
-		imageData.getDataInBackgroundWithBlock { (data: NSData!, error: NSError!) -> Void in
+		if currentUser != nil {
 			
-			if error == nil {
-				self.imageView.image = UIImage(data: data)
-				self.imageView.layer.cornerRadius = self.imageView.frame.width / 2.0
-				self.imageView.layer.borderWidth = 3
-				self.imageView.layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor
-				self.imageView.layer.masksToBounds = true
-			}
+			usernameLabel.text = currentUser!.username
+			imageView.image = UIImage(data: currentUser!.profileImage)
+			imageView.layer.cornerRadius = 10.0
+			imageView.layer.masksToBounds = true
 		}
 	}
 }

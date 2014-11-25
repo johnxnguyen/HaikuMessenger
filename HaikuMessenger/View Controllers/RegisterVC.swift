@@ -33,7 +33,7 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 			imageView.image = profilePicture
 		}
 	}
-	let coreDataManager = CoreDataManager()
+	
 	
 	// password text field constraints. Use to change priorities, determining which
 	// constraint is in effect
@@ -152,8 +152,9 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 							if error == nil {
 								println("Facebook user registration complete!")
 								
-								// save to store
-								self.coreDataManager.storeUser(user, withImage: profilePictureData)
+								// save to coreData
+								let coreDataManager = CoreDataManager()
+								coreDataManager.storeUser(user, withImage: profilePictureData)
 								
 								// prevents skipping login page
 								PFUser.logOut()
@@ -203,7 +204,8 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 						println("Email user successfully registered!")
 						
 						// save to CoreData
-						self.coreDataManager.storeUser(PFUser.currentUser(), withImage: profilePictureData)
+						let coreDataManager = CoreDataManager()
+						coreDataManager.storeUser(PFUser.currentUser(), withImage: profilePictureData)
 						
 						// prevents skipping login page
 						PFUser.logOut()
