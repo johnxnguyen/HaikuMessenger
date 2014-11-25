@@ -25,18 +25,21 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 	// ------------------------------------------------------------------
 	
 	var facebookLogin: Bool!
-	var facebookUser: Dictionary<String, AnyObject>?
+	var facebookID: String = ""
+	var facebookEmail: String = ""
 	var imageData = NSMutableData()
 	
 	var profilePicture: UIImage = UIImage(named: "defaultProfilePic")! {
 		didSet {
+			// update imageview
 			imageView.image = profilePicture
 		}
 	}
 	
-	
 	// password text field constraints. Use to change priorities, determining which
-	// constraint is in effect
+	// constraint is in effect. Make sure than in IB, the vertical spacing constraint
+	// to username constant is the same as the vertical spacing constraint between email
+	// and username. also, the priority of the former constraint is set to 250
 	@IBOutlet weak var passwordTFVerticalSpacingConstraintToEmailTF: NSLayoutConstraint!
 	@IBOutlet weak var passwordTFVerticalSpacingConstraintToUsernameTF: NSLayoutConstraint!
 	
@@ -51,12 +54,13 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 	//	MARK:					 STANDARD
 	// ------------------------------------------------------------------
 	
-	// VIEW DID LOAD
+	// VIEW DID LOAD - set imageView, get fb data if neccessary
 	//
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		imageView.image = profilePicture
+		
 		// needs to be half the width to be a circle
 		// for some reason the frame is wack at runtime
 		imageView.layer.cornerRadius = 80
@@ -79,26 +83,28 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 			FBRequestConnection.startForMeWithCompletionHandler({
 				(connection: FBRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
 				
+				// success
 				if error == nil {
 					
-					self.facebookUser = (result as Dictionary<String, AnyObject>)
-					
-					let facebookID = self.facebookUser!["id"] as String
-					let firstName = self.facebookUser!["first_name"] as String
+					let facebookUser = (result as Dictionary<String, AnyObject>)
+					self.facebookID = facebookUser["id"] as String
+					self.facebookEmail = facebookUser["email"] as String
+					let firstName = facebookUser["first_name"] as String
 					
 					// display profile pic & welcome message
-					self.downloadProfileImageWithId(facebookID)
+					self.downloadProfileImageWithId(self.facebookID)
 					self.welcomeLabel.text = "Welcome, \(firstName)"
 					
 					
 				} else {
-					println("Error: \(error.userInfo)")
+					println("Parse Error: \(error.userInfo)")
 					
-					// go to login
+					// go back to login
 					self.navigationController!.popViewControllerAnimated(true)
 				}
 			})
 			
+		// failed to get fb data
 		} else {
 			welcomeLabel.text = "Welcome!"
 		}
@@ -122,76 +128,79 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 		if formIsValid() {
 			
 			// FACEBOOK REGISTRATION
-			if facebookLogin == true && facebookUser != nil {
+			if facebookLogin == true {
 				
-				let facebookID = facebookUser!["id"] as String
 				let accessTokenData = FBSession.activeSession().accessTokenData
 				
 				// create user (logs in or creates if necessary)
 				PFFacebookUtils.logInWithFacebookId(facebookID, accessToken: accessTokenData.accessToken, expirationDate: accessTokenData.expirationDate, block: { (user: PFUser!, error: NSError!) -> Void in
 					
+					// success
 					if error == nil {
 						
-						// user is signed up at this point, but but input details not saved
+						// NOTE: user is signed up at this point, but but input details not saved
 						
 						// update user details
 						user.username = self.usernameTextField.text
 						user.password = self.passwordTextField.text
-						// get email address & photo
-						user.email = self.facebookUser!["email"] as String
+						user.email = self.facebookEmail
 						
-						// image
+						// create thumbnail image
 						let thumbnail = self.thumbnailFromImage(self.profilePicture)
 						let profilePictureData = UIImageJPEGRepresentation(thumbnail, 1.0)
-						
 						user[kUser.ProfilePhoto] = PFFile(data: profilePictureData)
 						
 						// save user
 						user.saveInBackgroundWithBlock({ (success: Bool!, error: NSError!) -> Void in
 							
+							// success
 							if error == nil {
-								println("Facebook user registration complete!")
+								
+								println("Facebook registration complete!")
 								
 								// save to coreData
 								let coreDataManager = CoreDataManager()
-								coreDataManager.storeUser(user, withImage: profilePictureData)
 								
-								// prevents skipping login page
-								PFUser.logOut()
+								// successfully saved to CoreData
+								if coreDataManager.storeUser(user, withImage: profilePictureData) == true {
+									
+									// prevents skipping login page
+									PFUser.logOut()
+									
+									// go back to login
+									self.navigationController!.popViewControllerAnimated(true)
+									
+								// failed to save to CoreData
+								} else {
+									
+									self.abort()
+								}
 								
-								// go to login
-								self.navigationController!.popViewControllerAnimated(true)
-								
+							// failed to save FB user to Parse
 							} else {
-								println("Error: \(error.userInfo)")
 								
-								// delete user
-								PFUser.currentUser().deleteInBackground()
-								
-								// alert to try again
-								self.alertUser("Whoops!", message: "Something went wrong, please try again")
-								
-								// go to login
-								self.navigationController!.popViewControllerAnimated(true)
-							}
+								println("Parse Error: \(error.userInfo)")
+								self.abort()							}
 						})
 						
+					// failed FB signup
 					} else {
-						// error logging in
+
 						var errorString = error.userInfo!["error"] as String
 						self.alertUser("Oops", message: errorString)
 					}
 				})
 				
+			// EMAIL REGISTRATION
 			} else {
-				// EMAIL REGISTRATION
 				
+				// create user
 				var emailUser = PFUser()
 				emailUser.username = usernameTextField.text
 				emailUser.password = passwordTextField.text
 				emailUser.email = emailTextField.text
 				
-				
+				// create thumbnail image
 				let thumbnail = thumbnailFromImage(profilePicture)
 				let profilePictureData = UIImageJPEGRepresentation(thumbnail, 1.0)
 				emailUser[kUser.ProfilePhoto] = PFFile(data: profilePictureData)
@@ -199,27 +208,39 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 				// save user
 				emailUser.signUpInBackgroundWithBlock({ (success: Bool!, error: NSError!) -> Void in
 					
+					// success
 					if error == nil {
 						
-						println("Email user successfully registered!")
+						println("Email registration complete!")
 						
 						// save to CoreData
 						let coreDataManager = CoreDataManager()
-						coreDataManager.storeUser(PFUser.currentUser(), withImage: profilePictureData)
 						
-						// prevents skipping login page
-						PFUser.logOut()
+						// successfully saved to CoreData
+						if coreDataManager.storeUser(PFUser.currentUser(), withImage: profilePictureData) == true {
+							
+							// prevents skipping login page
+							PFUser.logOut()
+							
+							// go back to login
+							self.navigationController!.popViewControllerAnimated(true)
+							
+						// failed to save to CoreData
+						} else {
+							
+							self.abort()
+						}
 						
-						// go to login
-						self.navigationController!.popViewControllerAnimated(true)
 						
+					// failed email signup
 					} else {
-						println("Error: \(error.userInfo)")
+						
+						println("Parse Error: \(error.userInfo)")
 						
 						// alert to try again
 						self.alertUser("Whoops!", message: "Something went wrong, please try again")
 						
-						// go to login
+						// go back to login
 						self.navigationController!.popViewControllerAnimated(true)
 					}
 				})
@@ -239,10 +260,12 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 			FBSession.activeSession().closeAndClearTokenInformation()
 		}
 		
-		// go to login
+		// go back to login
 		self.navigationController!.popViewControllerAnimated(true)
 	}
 	
+	// EDIT IMAGE BUTTON
+	//
 	@IBAction func editImageButtonTapped(sender: UIButton) {
 		
 		// if camera is available
@@ -331,7 +354,6 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 		if urlConnection == nil {
 			println("Error: Failed to download profile image")
 		}
-		
 	}
 	
 	// THUMBNAIL FROM IMAGE (150 x 150)
@@ -422,6 +444,20 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 		
 		let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Ok")
 		alert.show()
+	}
+	
+	// ABORT REGISTRATION
+	//
+	func abort() {
+		
+		// delete user
+		PFUser.currentUser().deleteInBackground()
+		
+		// alert to try again
+		self.alertUser("Whoops!", message: "Something went wrong, please try again")
+		
+		// go back to login
+		self.navigationController!.popViewControllerAnimated(true)
 	}
 	
 }

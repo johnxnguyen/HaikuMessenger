@@ -10,6 +10,7 @@
 
 - what happens when a user is deleted? how sync your friends
 - optimise images
+- Friend no longer added after request accepted. need to sync friends with store
 
 */
 
@@ -46,6 +47,22 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//	MARK:					 STANDARD
 	// ------------------------------------------------------------------
 	
+	// VIEW WILL APPEAR
+	//
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		// keep friend list synced
+		updateParseFriendsList()
+		
+		// get friends from store
+		let coreDataManager = CoreDataManager()
+		friends = coreDataManager.friendsForUserWithId(PFUser.currentUser().objectId)
+		
+		// check for new friend requests
+		checkForFriendRequests()
+	}
+	
 	// VIEW DID LOAD
 	//
 	override func viewDidLoad() {
@@ -67,22 +84,6 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 	}
 	
-	// VIEW WILL APPEAR
-	//
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		// keep friend list synced
-		updateParseFriendsList()
-		
-		// get friends from store
-		let coreDataManager = CoreDataManager()
-		friends = coreDataManager.friendsForUserWithId(PFUser.currentUser().objectId)!
-		println("friends.count: \(friends!.count)")
-		
-		// get new friend requests
-		countNewFriendRequests()
-	}
 	
 	// MEMORY WARNING
 	//
@@ -120,7 +121,12 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-		return friends!.count
+		if friends != nil {
+			return friends!.count
+			
+		} else {
+			return 0
+		}
 	}
 	
 	// CELL FOR ROW
@@ -147,9 +153,9 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//	MARK:					 HELPERS
 	// ------------------------------------------------------------------
 	
-	// COUNT NEW FRIEND REQUESTS
+	// CHECK FOR FRIEND REQUEST
 	//
-	func countNewFriendRequests() {
+	func checkForFriendRequests() {
 		
 		// friend requests for current user not yet seen
 		let query = PFQuery(className: kFriendRequest.ClassKey)
@@ -188,9 +194,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		}
 	}
 	
-	// UPDATE PARSE FRIENDS LIST
-	//
-	// fetch all accepted friends & add new to current user's friend property
+	// UPDATE PARSE FRIENDS LIST - sync accepted requests with users friend
 	//
 	func updateParseFriendsList() {
 		
@@ -207,11 +211,14 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		// combine requests (query1 || query2)
 		let combinedQuery = PFQuery.orQueryWithSubqueries([query1, query2])
 		
+		// find objects
 		combinedQuery.findObjectsInBackgroundWithBlock {
 			(results: [AnyObject]!, error: NSError!) -> Void in
 			
+			// success
 			if error == nil {
 				
+				// hold approved friends
 				var approvedFriends: [PFUser] = []
 				
 				// for each friendRequest
@@ -222,23 +229,25 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 					
 					// if current user is toUser
 					if toUser.objectId == PFUser.currentUser().objectId {
+						// add fromUser
 						approvedFriends.append(fromUser)
 						
 					// if current user is fromUser
 					} else if fromUser.objectId == PFUser.currentUser().objectId {
+						// add toUser
 						approvedFriends.append(toUser)
 					}
 				}
 				
-				// store friends to current user
+				// save only new
 				PFUser.currentUser().addUniqueObjectsFromArray(approvedFriends, forKey: kUser.Friends)
 				PFUser.currentUser().saveInBackground()
 				
 			} else {
-				println("Error: \(error.userInfo)")
+				println("Parse Error: \(error.userInfo)")
 			}
-			
 		}
 	}
+	
 	
 }

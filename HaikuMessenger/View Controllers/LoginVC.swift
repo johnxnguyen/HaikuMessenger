@@ -40,18 +40,7 @@ class LoginVC: UIViewController {
 		super.viewDidLoad()
 	}
 	
-	// VIEW DID APPEAR
-	//
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		// FB user already logged in?
-		if userIsloggedIn {
-			// go straight to inbox
-			performSegueWithIdentifier("RevealViewControllerSegue", sender: nil)
-		}
-	}
-	
+	// VIEW WILL APPEAR
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
@@ -74,6 +63,17 @@ class LoginVC: UIViewController {
 		passwordTextField.text = ""
 	}
 	
+	// VIEW DID APPEAR
+	//
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		if userIsloggedIn {
+			// bypass login form
+			performSegueWithIdentifier("RevealViewControllerSegue", sender: nil)
+		}
+	}
+	
 	// MEMORY WARNING
 	//
 	override func didReceiveMemoryWarning() {
@@ -88,11 +88,12 @@ class LoginVC: UIViewController {
 			
 			var targetViewController = segue.destinationViewController as RegisterVC
 			
-			// who is calling?
+			// facebook registration selected
 			if (sender as String) == "facebookButton" {
 				targetViewController.facebookLogin = true
+				
+			// email registration selected
 			} else {
-				// email registration
 				targetViewController.facebookLogin = false
 			}
 		}
@@ -133,12 +134,13 @@ class LoginVC: UIViewController {
 		// open the session
 		FBSession.openActiveSessionWithReadPermissions(["public_profile", "email", "user_friends"], allowLoginUI: true, completionHandler: { (session: FBSession!, state: FBSessionState, error: NSError!) -> Void in
 			
+			// success
 			if error == nil {
 				
 				// state is open
 				if state == FBSessionState.Open || state == FBSessionState.OpenTokenExtended {
 					
-					// go to register view controller
+					// go to register view controller (will be displayed on return to app)
 					self.performSegueWithIdentifier("RegisterSegue", sender: "facebookButton")
 				}
 			}

@@ -6,6 +6,14 @@
 //  Copyright (c) 2014 John Nguyen. All rights reserved.
 //
 
+//	NOTE:
+//
+//	the friend request PFObject is shared between two users. If the request
+//	is set to accepted, the original sender will be notified and will add
+//	the current user as a friend on their side. When a user accepts a request
+//	the sender of the request is added as the time of acceptance. The requests 
+//	are not deleted as they are needed to keep the friend lists sync on both sides
+
 import UIKit
 
 class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -17,6 +25,7 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 	@IBOutlet weak var tableView: UITableView!
 	
 	var requests: [PFObject] = [] {
+		
 		didSet {
 			tableView.reloadData()
 		}
@@ -34,7 +43,7 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 		tableView.dataSource = self
 		tableView.delegate = self
 		
-		// get requests
+		// get friend requests
 		let query = PFQuery(className: kFriendRequest.ClassKey)
 		query.whereKey(kFriendRequest.ToUser, equalTo: PFUser.currentUser())
 		query.findObjectsInBackgroundWithTarget(self, selector: "callbackWithResult:error:")
@@ -92,43 +101,29 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 	//
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		
-		// auto accept friendship (THIS IS JUST FOR TESTING SO FAR)
-		let request = requests[indexPath.row]
-		request[kFriendRequest.StatusKey] = kFriendRequest.StatusAccepted
-		request[kFriendRequest.MarkedAsRead] = true
+		// accept friendship
+		let friendRequest = requests[indexPath.row]
+		friendRequest[kFriendRequest.StatusKey] = kFriendRequest.StatusAccepted
+		friendRequest[kFriendRequest.MarkedAsRead] = true
 		
-		request.saveInBackgroundWithBlock { (success: Bool!, error: NSError!) -> Void in
+		// save friendRequest
+		friendRequest.saveInBackgroundWithBlock { (success: Bool!, error: NSError!) -> Void in
 			
+			// success
 			if error == nil {
-				println("You have accepted a friend request")
 				
-				let friend = request[kFriendRequest.FromUser] as PFUser
+				let friend = friendRequest[kFriendRequest.FromUser] as PFUser
 				
-				let imageData = friend[kUser.ProfilePhoto] as PFFile
-				imageData.getDataInBackgroundWithBlock({ (data: NSData!, error: NSError!) -> Void in
-					
-					if error == nil {
-						
-						// store friend to CoreData
-						let coreDataManager = CoreDataManager()
-						coreDataManager.storeFriend(friend, forUserWithID: PFUser.currentUser().objectId)
-						
-					} else {
-						println("Error: \(error.userInfo)")
-					}
-				})
-				
+				println("You have accepted a \(friend.username)'s friend request")
 				
 				// send notification
 				self.sendUserNotificationToUser(friend)
 				self.sendSystemNotificationToUser(friend)
 				
-				
 			} else {
-				println("Error: \(error.userInfo)")
+				println("Parse Error: \(error.userInfo)")
 			}
 		}
-		
 		
 	}
 	

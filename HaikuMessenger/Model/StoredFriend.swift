@@ -11,7 +11,7 @@ import CoreData
 
 @objc(StoredFriend)
 
-class StoredFriend: NSManagedObject {
+class StoredFriend: NSManagedObject, Equatable {
 
     @NSManaged var email: String
     @NSManaged var id: String
@@ -19,4 +19,9 @@ class StoredFriend: NSManagedObject {
     @NSManaged var username: String
     @NSManaged var user: StoredUser
 
+}
+
+// equatable function, compares friend ids
+func ==(lhs: StoredFriend, rhs: StoredFriend) -> Bool {
+	return lhs.id == rhs.id
 }

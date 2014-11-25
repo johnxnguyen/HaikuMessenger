@@ -37,12 +37,12 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		}
 	}
 	
-	var indexOfPreviouslySelectedRow: NSIndexPath?
-	
 	// ------------------------------------------------------------------
 	//	MARK:					  STANDARD
 	// ------------------------------------------------------------------
-
+	
+	// VIEW DID LOAD
+	//
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -55,6 +55,8 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		loadUserProfileUI()
     }
 	
+	// VIEW DID APPEAR
+	//
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
@@ -63,6 +65,8 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		checkForSystemNotifications()
 	}
 	
+	// LOAD VIEW
+	//
 	override func loadView() {
 		super.loadView()
 		
@@ -74,12 +78,17 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 	
+	// PREPARE FOR SEGUE - one segue, different views
+	//
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		super.prepareForSegue(segue, sender: sender)
 		
+		// the navigation controller for all other vc's
 		if segue.identifier == "navigationSegue" {
 			
 			let targetVC = segue.destinationViewController as UINavigationController
+			
+			// will instantiate a view for the nav controller
 			let storyboard = self.storyboard!
 			var vc: UIViewController!
 			
@@ -99,17 +108,10 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 				vc = storyboard.instantiateViewControllerWithIdentifier("InboxViewController") as InboxVC
 			}
 			
+			// load vc
 			targetVC.setViewControllers([vc], animated: true)
 		}
-		
-		
 	}
-	
-	// ------------------------------------------------------------------
-	//	MARK:				  USER INTERFACE
-	// ------------------------------------------------------------------
-	
-
 	
 	// ------------------------------------------------------------------
 	//	MARK:               TABLE VIEW DATASOURCE
@@ -127,14 +129,16 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		return menuItems.count
 	}
 	
-	// CELL
+	// CELL - different prototype cell for each menu item
 	//
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
 		let identifier = menuItems[indexPath.row]
 		let cell = tableView.dequeueReusableCellWithIdentifier(identifier) as StandardCell
 		
+		// dynamic title depending on notification count
 		if identifier == "notifications" {
+			
 			if userNotifications > 0 {
 				cell.textLabel.text = "Notifications: \(userNotifications)"
 				
@@ -177,6 +181,8 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//	MARK:					 HELPERS
 	// ------------------------------------------------------------------
 	
+	var indexOfPreviouslySelectedRow: NSIndexPath?
+	
 	// UPDATE CELL SELECTION STATES
 	//
 	func updateCellSelectionStates(indexPath: NSIndexPath) {
@@ -203,7 +209,7 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		indexOfPreviouslySelectedRow = indexPath
 	}
 	
-	// CHECK FOR USER NOTOFICATIONS
+	// CHECK FOR USER NOTIFICATIONS
 	//
 	func checkForUserNotifications() {
 		
@@ -237,7 +243,7 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 				
 				println("You have \(objects.count) system notification(s): ")
 				
-				// for each notification
+				// unpack notifications
 				for index in 0..<objects.count {
 					
 					let notification = objects[index] as PFObject
@@ -257,25 +263,40 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 						// the user who accepted your request
 						let friend = notification[kSystemNotification.FromUser] as PFUser
 						
-						let coreDataManager = CoreDataManager()
+						// get their image
+						let image = friend[kUser.ProfilePhoto] as PFFile
 						
-						// store friend to CoreData
-						if coreDataManager.storeFriend(friend, forUserWithID: PFUser.currentUser().objectId) == true {
+						// get the data
+						image.getDataInBackgroundWithBlock({ (data: NSData!, error: NSError!) -> Void in
 							
-							// change flag
-							notification[kSystemNotification.MarkedAsRead] = true
-							notification.saveInBackgroundWithBlock({ (success: Bool!, error: NSError!) -> Void in
+							// success
+							if error == nil {
 								
-								if error == nil {
-									println("System Notification marked as read")
+								let coreDataManager = CoreDataManager()
+								
+								// store friend to CoreData
+								if coreDataManager.storeFriend(friend, withImageData: data, forUserWithID: PFUser.currentUser().objectId) == true {
+									
+									// change flag
+									notification[kSystemNotification.MarkedAsRead] = true
+									
+									// save changes
+									notification.saveInBackgroundWithBlock({ (success: Bool!, error: NSError!) -> Void in
+										
+										// success
+										if error == nil {
+											println("System Notification marked as read")
+										} else {
+											println("Parse Error: \(error.userInfo)")
+										}
+									})
+									
 								} else {
-									println("Error: \(error.userInfo)")
+									println("Failed to store friend")
 								}
-							})
-							
-						} else {
-							println("Failed to store friend")
-						}
+							}
+						})
+						
 						
 					case kSystemNotification.TypeFriendUpdatedProfile:
 						println("A friend has updated their profile")
@@ -297,7 +318,7 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 				
 			} else {
 				// couldnt find notification objects
-				println("Error: \(error.userInfo)")
+				println("Parse Error: \(error.userInfo)")
 			}
 		}
 	}

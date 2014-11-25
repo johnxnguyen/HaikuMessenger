@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 class CoreDataManager: NSObject {
 	
 	// ------------------------------------------------------------------
@@ -21,6 +22,7 @@ class CoreDataManager: NSObject {
 	var moc: NSManagedObjectContext? = {
 		
 		let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+		
 		if let managedObjectContext = appDelegate.managedObjectContext {
 			return managedObjectContext
 		} else {
@@ -29,16 +31,53 @@ class CoreDataManager: NSObject {
 	}()
 	
 	// ------------------------------------------------------------------
-	//	MARK:				  CLASS FUNCTIONS
+	//	MARK:				    FUNCTIONS
 	// ------------------------------------------------------------------
+	
+	// USER FOR ID
+	//
+	func userForId(id: String) -> StoredUser? {
+		
+		// request user
+		let request = NSFetchRequest(entityName: kEntityName.StoredUser)
+		let predicate = NSPredicate(format: "id = %@", argumentArray: [id])
+		request.predicate = predicate
+		
+		var error: NSError?
+		
+		// execute request
+		let results = moc!.executeFetchRequest(request, error: &error) as [StoredUser]?
+		
+		// if objects found
+		if results != nil {
+			
+			// there should only be one user for id
+			if results!.count == 1 {
+				return results!.first
+				
+			} else if results!.count == 0 {
+				println("CoreData Error: couldnt find user for id: \(id)")
+				
+			} else {
+				println("CoreData Error: Fetched more than one StoredUser (should be unique)")
+			}
+			
+		} else {
+			println("CoreData Error: \(error!.userInfo)")
+		}
+		
+		return nil
+	}
 	
 	// STORE USER
 	//
-	func storeUser(user: PFUser, withImage imageData: NSData) {
+	func storeUser(user: PFUser, withImage imageData: NSData) -> Bool {
 		
+		// create user
 		let entityDescription = NSEntityDescription.entityForName(kEntityName.StoredUser, inManagedObjectContext: moc!)
 		var storedUser = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: moc!) as StoredUser
 		
+		// set properties
 		storedUser.id = user.objectId
 		storedUser.username = user.username
 		storedUser.password = user.password
@@ -47,13 +86,73 @@ class CoreDataManager: NSObject {
 		
 		var error: NSError?
 		
+		// save
 		if moc!.save(&error) {
-			println("User succesfully saved to CoreData")
+			println("'\(storedUser.username)' succesfully saved to CoreData")
+			return true
+			
 		} else {
-			println("Error: couldn't save user to CoreData, \(error!.userInfo)")
+			println("CoreData Error: couldn't save '\(storedUser.username)', \(error!.userInfo)")
+			return false
 		}
 	}
 	
+	// STORE FRIEND
+	//
+	func storeFriend(friend: PFUser, withImageData imageData: NSData, forUserWithID id: String) -> Bool {
+		
+		// current friend
+		let entityDescription = NSEntityDescription.entityForName(kEntityName.StoredFriend, inManagedObjectContext: moc!)
+		var storedFriend = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: moc!) as StoredFriend
+		
+		// set properties
+		storedFriend.id = friend.objectId
+		storedFriend.username = friend.username
+		storedFriend.email = friend.email
+		storedFriend.profileImage = imageData
+		
+		// set relation
+		if let user = self.userForId(id) {
+			storedFriend.user = user
+		} else {
+			println("CoreData Error: couldn't store friend '\(storedFriend.username)'")
+			return false
+		}
+		
+		var error: NSError?
+		
+		// save
+		if moc!.save(&error) {
+			println("Friend '\(storedFriend.username)' successfully saved to CoreData")
+			return true
+		} else {
+			println("CoreData Error: couldn't friend '\(storedFriend.username)', \(error!.userInfo)")
+			return false
+		}
+	}
+	
+	// FRIENDS FOR USER WITH ID
+	//
+	func friendsForUserWithId(id: String) -> [StoredFriend]? {
+		
+		// get current user
+		if let currentUser = self.userForId(id) {
+			
+			var friends = currentUser.friends.allObjects as [StoredFriend]
+			
+			// order alphabetically
+			friends.sort({ (x: StoredFriend, y: StoredFriend) -> Bool in
+				
+				x.username < y.username ? true : false
+			})
+			
+			return friends
+			
+		} else {
+			println("CoreData Error: couldn't get friends")
+			return nil
+		}
+	}
 	
 	// DELETE USER
 	//
@@ -61,51 +160,11 @@ class CoreDataManager: NSObject {
 		
 	}
 	
-	
 	// SYNC USER
 	//
 	func syncUser(user: PFUser) {
 		
 	}
-	
-	
-	// STORE FRIEND
-	//
-	func storeFriend(friend: PFUser, forUserWithID id: String) -> Bool {
-		
-		// fetch friend
-		friend.fetchIfNeeded()
-		
-		// current user
-		let entityDescription = NSEntityDescription.entityForName(kEntityName.StoredFriend, inManagedObjectContext: moc!)
-		var storedFriend = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: moc!) as StoredFriend
-		
-		storedFriend.id = friend.objectId
-		storedFriend.username = friend.username
-		storedFriend.email = friend.email
-		
-		// MAIN THREAD!
-		storedFriend.profileImage  = friend[kUser.ProfilePhoto].getData()
-		
-		// set relation
-		let user = self.userForId(id)
-		
-		if user != nil {
-			storedFriend.user = user!
-			
-		}
-		
-		var error: NSError?
-		
-		if moc!.save(&error) {
-			println("Friend successfully saved")
-			return true
-		} else {
-			println("Error: couldn't save friend to CoreData, \(error!.userInfo)")
-			return false
-		}
-	}
-	
 	
 	// DELETE FRIEND
 	//
@@ -119,63 +178,35 @@ class CoreDataManager: NSObject {
 		
 	}
 	
-	
-	// SYNC ALL FRIENDS
+	// SYNC FRIENDS WITH PARSE
 	//
-	class func syncAllFriends(friends: [PFUser]) {
+	func syncFriendsWithParse(parseFriends: [PFUser], forUserID userID: String) -> Bool {
 		
-	}
-	
-	// USER FOR ID
-	//
-	func userForId(id: String) -> StoredUser? {
-		
-		let request = NSFetchRequest(entityName: kEntityName.StoredUser)
-		let predicate = NSPredicate(format: "id = %@", argumentArray: [id])
+		// get all storedFriends for user
+		let request = NSFetchRequest(entityName: kEntityName.StoredFriend)
+		let predicate = NSPredicate(format: "user.id = %@", [userID])
 		request.predicate = predicate
 		
 		var error: NSError?
 		
-		let results = moc!.executeFetchRequest(request, error: &error) as [StoredUser]?
-		
-		if results != nil {
-			if results!.count == 1 {
-				println("Returning: \(results!.first!.username)")
-				return results!.first
+		// execute
+		if let results = moc!.executeFetchRequest(request, error: &error) {
+			
+			let storedFriends = results as [StoredFriend]
+			
+			// for each parse friend
+			for parseFriend in parseFriends {
 				
-			} else if results!.count == 0 {
-				println("Error: couldnt find user for id: \(id)")
-			} else {
-				println("Error: Fetched more than one StoredUser (should be unique)")
+//				// check if already exists in storedFriends
+//				if let found = find(storedFriends, parseFriend) {
+//					
+//				}
 			}
-		} else {
-			println("CoreData Error: \(error!.userInfo)")
 		}
 		
-		return nil
-	}
-	
-	// FRIENDS FOR USER WITH ID
-	//
-	func friendsForUserWithId(id: String) -> [StoredFriend]? {
 		
-		let currentStoredUser = self.userForId(id)
 		
-		if currentStoredUser != nil {
-			
-			var friends = currentStoredUser!.friends.allObjects as [StoredFriend]
-			
-			// order alphabetically
-			friends.sort({ (x: StoredFriend, y: StoredFriend) -> Bool in
-				
-				x.username < y.username ? true : false
-			})
-			
-			return friends
-			
-		} else {
-			return nil
-		}
+		return true
 	}
 	
 	
