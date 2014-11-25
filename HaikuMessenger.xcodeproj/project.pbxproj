@@ -39,7 +39,11 @@
 		EE3DD7BF1A17FAEC00902642 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3DD7BA1A17FAEC00902642 /* ParseFacebookUtils.framework */; };
 		EE3DD7C01A17FAEC00902642 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3DD7BB1A17FAEC00902642 /* ParseUI.framework */; };
 		EE3DD7C31A180D1500902642 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3DD7C21A180D1500902642 /* FriendCell.swift */; };
+		EE4AB5421A210FC60000E2C9 /* ComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4AB5411A210FC60000E2C9 /* ComposeVC.swift */; };
 		EE5E5C411A193CD300C5132B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5E5C401A193CD300C5132B /* SWRevealViewController.m */; };
+		EEA46D111A24A6C600A0E414 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA46D101A24A6C600A0E414 /* libc++.dylib */; };
+		EEA46D151A24A77E00A0E414 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA46D141A24A77E00A0E414 /* RLMSupport.swift */; };
+		EEA46D171A24A78800A0E414 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA46D161A24A78800A0E414 /* Realm.framework */; };
 		EEBB4E091A194717008B8239 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB4E081A194717008B8239 /* MenuVC.swift */; };
 		EEBB4E0B1A194FB9008B8239 /* StandardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB4E0A1A194FB9008B8239 /* StandardCell.swift */; };
 		EEC417221A153672000CD1AC /* PageContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC417211A153672000CD1AC /* PageContainerVC.swift */; };
@@ -101,8 +105,12 @@
 		EE3DD7BA1A17FAEC00902642 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = HaikuMessenger/Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		EE3DD7BB1A17FAEC00902642 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = HaikuMessenger/Frameworks/ParseUI.framework; sourceTree = "<group>"; };
 		EE3DD7C21A180D1500902642 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendCell.swift; path = Subclasses/FriendCell.swift; sourceTree = "<group>"; };
+		EE4AB5411A210FC60000E2C9 /* ComposeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComposeVC.swift; path = "View Controllers/ComposeVC.swift"; sourceTree = "<group>"; };
 		EE5E5C3F1A193CD300C5132B /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		EE5E5C401A193CD300C5132B /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		EEA46D101A24A6C600A0E414 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		EEA46D141A24A77E00A0E414 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
+		EEA46D161A24A78800A0E414 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		EEBB4E081A194717008B8239 /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuVC.swift; path = "View Controllers/MenuVC.swift"; sourceTree = "<group>"; };
 		EEBB4E0A1A194FB9008B8239 /* StandardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardCell.swift; path = Subclasses/StandardCell.swift; sourceTree = "<group>"; };
 		EEC417211A153672000CD1AC /* PageContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageContainerVC.swift; path = "View Controllers/PageContainerVC.swift"; sourceTree = "<group>"; };
@@ -119,6 +127,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEA46D171A24A78800A0E414 /* Realm.framework in Frameworks */,
+				EEA46D111A24A6C600A0E414 /* libc++.dylib in Frameworks */,
 				EE3DD7BF1A17FAEC00902642 /* ParseFacebookUtils.framework in Frameworks */,
 				EE1041311A10AE6500E9CBFE /* SystemConfiguration.framework in Frameworks */,
 				EE10412F1A10AE5D00E9CBFE /* StoreKit.framework in Frameworks */,
@@ -166,7 +176,7 @@
 			name = "Login & Registration";
 			sourceTree = "<group>";
 		};
-		EE00C78D1A1F938E00884A02 /* Main View Ctonrollers */ = {
+		EE00C78D1A1F938E00884A02 /* Primary View Controlers */ = {
 			isa = PBXGroup;
 			children = (
 				EEBB4E081A194717008B8239 /* MenuVC.swift */,
@@ -175,7 +185,7 @@
 				EE00C78A1A1F8A9600884A02 /* NotificationsVC.swift */,
 				EE00C78E1A1F94A100884A02 /* SettingsVC.swift */,
 			);
-			name = "Main View Ctonrollers";
+			name = "Primary View Controlers";
 			sourceTree = "<group>";
 		};
 		EE1040ED1A10AC5000E9CBFE = {
@@ -216,6 +226,7 @@
 		EE1040F91A10AC5000E9CBFE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EEA46D141A24A77E00A0E414 /* RLMSupport.swift */,
 				EE25CDD21A10D91600FF95AB /* Factory.swift */,
 				EEC4454D1A1E04F90053A44A /* CoreDataManager.swift */,
 				EEC96A4F1A129891006B996E /* Contants.swift */,
@@ -247,6 +258,8 @@
 		EE1041321A10AE7B00E9CBFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EEA46D161A24A78800A0E414 /* Realm.framework */,
+				EEA46D101A24A6C600A0E414 /* libc++.dylib */,
 				EE3DD7B71A17FAEC00902642 /* Bolts.framework */,
 				EE3DD7B81A17FAEC00902642 /* FacebookSDK.framework */,
 				EE3DD7B91A17FAEC00902642 /* Parse.framework */,
@@ -271,19 +284,20 @@
 			isa = PBXGroup;
 			children = (
 				EE00C78C1A1F935600884A02 /* Login & Registration */,
-				EE00C78D1A1F938E00884A02 /* Main View Ctonrollers */,
-				EE3DD7C11A180AFF00902642 /* Friends */,
+				EE00C78D1A1F938E00884A02 /* Primary View Controlers */,
+				EE3DD7C11A180AFF00902642 /* Secondary View Controllers */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		EE3DD7C11A180AFF00902642 /* Friends */ = {
+		EE3DD7C11A180AFF00902642 /* Secondary View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EE4AB5411A210FC60000E2C9 /* ComposeVC.swift */,
 				EEE7B1FC1A13B9A6008FEE8E /* FriendRequestsVC.swift */,
 				EE25CDD61A10E31B00FF95AB /* AddFriendVC.swift */,
 			);
-			name = Friends;
+			name = "Secondary View Controllers";
 			sourceTree = "<group>";
 		};
 		EE5E5C3E1A193CD300C5132B /* SWRevealViewController */ = {
@@ -478,7 +492,9 @@
 				EE1041411A10B2A700E9CBFE /* LoginVC.swift in Sources */,
 				EE25CDD71A10E31B00FF95AB /* AddFriendVC.swift in Sources */,
 				EEC96A501A129891006B996E /* Contants.swift in Sources */,
+				EEA46D151A24A77E00A0E414 /* RLMSupport.swift in Sources */,
 				EEE7B1FD1A13B9A6008FEE8E /* FriendRequestsVC.swift in Sources */,
+				EE4AB5421A210FC60000E2C9 /* ComposeVC.swift in Sources */,
 				EEBB4E091A194717008B8239 /* MenuVC.swift in Sources */,
 				EE00C78B1A1F8A9600884A02 /* NotificationsVC.swift in Sources */,
 			);

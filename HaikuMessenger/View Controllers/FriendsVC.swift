@@ -58,7 +58,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		// set menu bar button item
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Menu"), style: .Plain, target: self.revealViewController(), action: "revealToggle:")
 		// set add bar button item
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addButtonTapped:")
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addBarButtonTapped:")
 		// set title
 		navigationItem.title = "Friends"
 		
@@ -99,7 +99,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
 	// ADD BAR BUTTON
 	//
-	func addButtonTapped(sender: UIBarButtonItem) {
+	func addBarButtonTapped(sender: UIBarButtonItem) {
 		
 		performSegueWithIdentifier("AddFriendSegue", sender: nil)
 	}

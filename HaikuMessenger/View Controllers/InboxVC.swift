@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class InboxVC: UIViewController {
 	
 	// ------------------------------------------------------------------
@@ -37,6 +38,7 @@ class InboxVC: UIViewController {
 		
 		// set the gesture (swipe to reveal menu)
 		self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+		self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
 		
 	}
 	
@@ -54,7 +56,7 @@ class InboxVC: UIViewController {
 	//
 	func composeButtonTapped(sender: UIBarButtonItem) {
 		
-		println("Compose new haiku")
+		performSegueWithIdentifier("ComposeSegue", sender: nil)
 	}
 
 }

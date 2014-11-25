@@ -246,6 +246,7 @@
                     <connections>
                         <segue destination="ZPc-yR-sps" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="ipK-pb-LHZ"/>
                         <segue destination="AGF-cX-ITh" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="x9y-W3-9gY"/>
+                        <segue destination="K9t-EY-OTL" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegueSetController" id="0Pe-Tx-cUM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t9s-MR-3YE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -695,21 +696,21 @@
                                 <exclude reference="XaR-Vz-gMr"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="3vx-gg-KyM"/>
-                                <exclude reference="6xJ-FU-Wre"/>
-                                <exclude reference="1Nf-cG-oyV"/>
-                                <exclude reference="mai-k1-Unc"/>
                                 <exclude reference="JHu-ca-u3Z"/>
                                 <exclude reference="b6X-q8-om5"/>
-                                <exclude reference="K8D-qK-9Et"/>
-                                <exclude reference="wR0-AO-OPY"/>
-                                <exclude reference="CED-l3-bbw"/>
-                                <exclude reference="xQm-Vn-9aJ"/>
                                 <exclude reference="2O1-cc-B5s"/>
                                 <exclude reference="4Gs-zI-hSh"/>
                                 <exclude reference="PIr-aE-051"/>
                                 <exclude reference="MkX-Yz-fg4"/>
                                 <exclude reference="fyr-Vh-z55"/>
+                                <exclude reference="CED-l3-bbw"/>
+                                <exclude reference="xQm-Vn-9aJ"/>
+                                <exclude reference="K8D-qK-9Et"/>
+                                <exclude reference="wR0-AO-OPY"/>
+                                <exclude reference="1Nf-cG-oyV"/>
+                                <exclude reference="mai-k1-Unc"/>
+                                <exclude reference="3vx-gg-KyM"/>
+                                <exclude reference="6xJ-FU-Wre"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -723,21 +724,21 @@
                                 <include reference="XaR-Vz-gMr"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="3vx-gg-KyM"/>
-                                <include reference="6xJ-FU-Wre"/>
-                                <include reference="1Nf-cG-oyV"/>
-                                <include reference="mai-k1-Unc"/>
                                 <include reference="JHu-ca-u3Z"/>
                                 <include reference="b6X-q8-om5"/>
-                                <include reference="K8D-qK-9Et"/>
-                                <include reference="wR0-AO-OPY"/>
-                                <include reference="CED-l3-bbw"/>
-                                <include reference="xQm-Vn-9aJ"/>
                                 <include reference="2O1-cc-B5s"/>
                                 <include reference="4Gs-zI-hSh"/>
                                 <include reference="PIr-aE-051"/>
                                 <include reference="MkX-Yz-fg4"/>
                                 <include reference="fyr-Vh-z55"/>
+                                <include reference="CED-l3-bbw"/>
+                                <include reference="xQm-Vn-9aJ"/>
+                                <include reference="K8D-qK-9Et"/>
+                                <include reference="wR0-AO-OPY"/>
+                                <include reference="1Nf-cG-oyV"/>
+                                <include reference="mai-k1-Unc"/>
+                                <include reference="3vx-gg-KyM"/>
+                                <include reference="6xJ-FU-Wre"/>
                             </mask>
                         </variation>
                     </view>
@@ -872,6 +873,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VZA-0q-CAg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4615" y="2622"/>
+        </scene>
+        <!--ComposeVC-->
+        <scene sceneID="Gc0-Ei-8zU">
+            <objects>
+                <viewController id="cGM-Cw-uan" customClass="ComposeVC" customModule="HaikuMessenger" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="icD-SD-RZZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="hFk-bU-hEB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="N9C-hq-IJh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jvQ-7J-9HG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3165" y="2622"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="6a2-By-amO">
+            <objects>
+                <viewController id="K9t-EY-OTL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tzC-od-8tD"/>
+                        <viewControllerLayoutGuide type="bottom" id="jDq-oc-74Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Rg1-br-caa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YUHU" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Cx-eD-JEH">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="176" y="275" width="49" height="21"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="6Cx-eD-JEH"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="6Cx-eD-JEH"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xSA-qG-eRA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2760" y="1143"/>
         </scene>
         <!--Friend RequestsVC-->
         <scene sceneID="o2l-kF-SMq">
@@ -1191,10 +1249,13 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Inbox" id="JNz-bd-7Al"/>
+                    <connections>
+                        <segue destination="cGM-Cw-uan" kind="show" identifier="ComposeSegue" id="YDO-ho-yFH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ne-dB-AKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3513" y="1870"/>
+            <point key="canvasLocation" x="3165" y="1870"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GcR-tZ-M7s">
@@ -1244,6 +1305,6 @@
         <image name="settings_icon" width="39" height="39"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sZH-Of-2ql"/>
+        <segue reference="x9y-W3-9gY"/>
     </inferredMetricsTieBreakers>
 </document>
