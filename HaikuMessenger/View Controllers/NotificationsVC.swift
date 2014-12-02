@@ -97,6 +97,7 @@ class NotificationsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	func getNotifications() {
 		
 		let query = PFQuery(className: kUserNotification.ClassKey)
+		query.cachePolicy = kPFCachePolicyCacheElseNetwork
 		query.whereKey(kUserNotification.ToUser, equalTo: PFUser.currentUser())
 		query.whereKey(kUserNotification.MarkedAsRead, equalTo: false)
 		

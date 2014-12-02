@@ -25,7 +25,7 @@ class ComposeVC: UIViewController {
 		super.viewDidLoad()
 		
 		// set compose button item
-		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.Plain, target: self.revealViewController(), action: "rightRevealToggle:")
+		//navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.Plain, target: self.revealViewController(), action: "rightRevealToggle:")
 		// set title
 		navigationItem.title = "Compose"
 

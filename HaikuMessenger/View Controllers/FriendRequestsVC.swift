@@ -44,8 +44,9 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 		tableView.delegate = self
 		
 		// get friend requests
-		let query = PFQuery(className: kFriendRequest.ClassKey)
+		let query = PFQuery(className: kFriendRequest.Class)
 		query.whereKey(kFriendRequest.ToUser, equalTo: PFUser.currentUser())
+		query.whereKey(kFriendRequest.MarkedAsRead, equalTo: false)
 		query.findObjectsInBackgroundWithTarget(self, selector: "callbackWithResult:error:")
 	}
 	
@@ -103,7 +104,7 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 		
 		// accept friendship
 		let friendRequest = requests[indexPath.row]
-		friendRequest[kFriendRequest.StatusKey] = kFriendRequest.StatusAccepted
+		friendRequest[kFriendRequest.Status] = kFriendRequestStatus.Accepted
 		friendRequest[kFriendRequest.MarkedAsRead] = true
 		
 		// save friendRequest
@@ -114,11 +115,7 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 				
 				let friend = friendRequest[kFriendRequest.FromUser] as PFUser
 				
-				println("You have accepted a \(friend.username)'s friend request")
-				
-				// send notification
-				self.sendUserNotificationToUser(friend)
-				self.sendSystemNotificationToUser(friend)
+				println("You have accepted \(friend.username)'s friend request")
 				
 			} else {
 				println("Parse Error: \(error.userInfo)")
@@ -163,25 +160,5 @@ class FriendRequestsVC: UIViewController, UITableViewDataSource, UITableViewDele
 				println("Error: \(error.userInfo)")
 			}
 		})
-	}
-	
-	// SEND SYSTEM NOTIFICATION
-	//
-	func sendSystemNotificationToUser(user: PFUser) {
-		
-		var notification = PFObject(className: kSystemNotification.ClassKey)
-		notification[kSystemNotification.FromUser] = PFUser.currentUser()
-		notification[kSystemNotification.ToUser] = user
-		notification[kSystemNotification.TypeKey] = kSystemNotification.TypeFriendRequestAccepted
-		notification[kSystemNotification.MarkedAsRead] = false
-		
-		notification.saveInBackgroundWithBlock { (success: Bool!, error: NSError!) -> Void in
-			
-			if error == nil {
-				println("System Notification sent!")
-			} else {
-				println("Error: \(error.userInfo)")
-			}
-		}
 	}
 }

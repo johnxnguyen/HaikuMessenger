@@ -20,24 +20,16 @@
 import UIKit
 
 
-class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FriendsVC: PFQueryTableViewController, UITableViewDataSource, UITableViewDelegate {
 	
 	// ------------------------------------------------------------------
 	//	MARK:               PROPERTIES & OUTLETS
 	// ------------------------------------------------------------------
 	
-	@IBOutlet weak var tableView: UITableView!
+	
 	@IBOutlet weak var requestsButton: UIButton!
 	
-	var friends: [StoredFriend]? {
-
-		didSet {
-			tableView.reloadData()
-		}
-	}
-	
 	var newFriendRequestsCount: Int = 0 {
-		
 		didSet {
 			updateFriendRequestsButton()
 		}
@@ -47,17 +39,38 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//	MARK:					 STANDARD
 	// ------------------------------------------------------------------
 	
+	
+	// INIT
+	//
+	required init(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		
+		// class name to query
+		parseClassName = "_User"
+		
+		// key to display in cell label
+		textKey = "username"
+		
+		// image key
+		imageKey = kUser.ProfilePhoto
+		
+		// place holder image
+		placeholderImage = UIImage(named: "defaultProfilePic")
+		
+		// enable pull to refresh
+		pullToRefreshEnabled = true
+		
+		// pagination?
+		paginationEnabled = false
+		
+	}
+	
 	// VIEW WILL APPEAR
 	//
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		// keep friend list synced
-		updateParseFriendsList()
-		
-		// get friends from store
-		let coreDataManager = CoreDataManager()
-		friends = coreDataManager.friendsForUserWithId(PFUser.currentUser().objectId)
+		loadObjects()
 		
 		// check for new friend requests
 		checkForFriendRequests()
@@ -67,11 +80,6 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		tableView.dataSource = self
-		tableView.delegate = self
-		
-		requestsButton.hidden = true
 		
 		// set menu bar button item
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Menu"), style: .Plain, target: self.revealViewController(), action: "revealToggle:")
@@ -111,35 +119,26 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	//	MARK:             TABLE VIEW DATA SOURCE
 	// ------------------------------------------------------------------
 	
-	// NUMBER OF SECTIONS
-	//
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 1
-	}
-	
-	// NUMBER OF ROWS
-	//
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func queryForTable() -> PFQuery! {
 		
-		if friends != nil {
-			return friends!.count
-			
-		} else {
-			return 0
-		}
+		let relation = PFUser.currentUser().relationForKey(kUser.Friends)
+		let query = relation.query()
+//		query.cachePolicy = kPFCachePolicyCacheElseNetwork
+		return query
 	}
 	
 	// CELL FOR ROW
 	//
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!, object: PFObject!) -> PFTableViewCell! {
 		
-		var cell = tableView.dequeueReusableCellWithIdentifier("FriendCell") as FriendCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as CustomCell
 		
-		let friend = friends![indexPath.row]
+		let friend = object as PFUser
 		
-		// configure cell
 		cell.textLabel.text = friend.username
-		cell.imageView.image = UIImage(data: friend.profileImage)
+		cell.profileImageView.image = UIImage(named: "defaultProfilePic")
+		cell.profileImageView.file = friend[kUser.ProfilePhoto] as PFFile
+		cell.profileImageView.loadInBackground()
 		
 		return cell
 	}
@@ -158,7 +157,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	func checkForFriendRequests() {
 		
 		// friend requests for current user not yet seen
-		let query = PFQuery(className: kFriendRequest.ClassKey)
+		let query = PFQuery(className: kFriendRequest.Class)
 		query.whereKey(kFriendRequest.ToUser, equalTo: PFUser.currentUser())
 		query.whereKey(kFriendRequest.MarkedAsRead, equalTo: false)
 		query.countObjectsInBackgroundWithBlock { (count: Int32, error: NSError!) -> Void in
@@ -178,7 +177,6 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		
 		if newFriendRequestsCount > 0 {
 			
-			requestsButton.hidden = false
 			requestsButton.enabled = true
 			
 			if newFriendRequestsCount == 1 {
@@ -188,64 +186,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 			}
 			
 		} else {
-			
-			requestsButton.hidden = true
 			requestsButton.enabled = false
-		}
-	}
-	
-	// UPDATE PARSE FRIENDS LIST - sync accepted requests with users friend
-	//
-	func updateParseFriendsList() {
-		
-		// fetch all accepted friend requests to you
-		let query1 = PFQuery(className: kFriendRequest.ClassKey)
-		query1.whereKey(kFriendRequest.ToUser, equalTo: PFUser.currentUser())
-		query1.whereKey(kFriendRequest.StatusKey, equalTo: kFriendRequest.StatusAccepted)
-		
-		// fetch all accepted friend requests from you
-		let query2 = PFQuery(className: kFriendRequest.ClassKey)
-		query2.whereKey(kFriendRequest.FromUser, equalTo: PFUser.currentUser())
-		query2.whereKey(kFriendRequest.StatusKey, equalTo: kFriendRequest.StatusAccepted)
-		
-		// combine requests (query1 || query2)
-		let combinedQuery = PFQuery.orQueryWithSubqueries([query1, query2])
-		
-		// find objects
-		combinedQuery.findObjectsInBackgroundWithBlock {
-			(results: [AnyObject]!, error: NSError!) -> Void in
-			
-			// success
-			if error == nil {
-				
-				// hold approved friends
-				var approvedFriends: [PFUser] = []
-				
-				// for each friendRequest
-				for request in results {
-					
-					let toUser = request[kFriendRequest.ToUser] as PFUser
-					let fromUser = request[kFriendRequest.FromUser] as PFUser
-					
-					// if current user is toUser
-					if toUser.objectId == PFUser.currentUser().objectId {
-						// add fromUser
-						approvedFriends.append(fromUser)
-						
-					// if current user is fromUser
-					} else if fromUser.objectId == PFUser.currentUser().objectId {
-						// add toUser
-						approvedFriends.append(toUser)
-					}
-				}
-				
-				// save only new
-				PFUser.currentUser().addUniqueObjectsFromArray(approvedFriends, forKey: kUser.Friends)
-				PFUser.currentUser().saveInBackground()
-				
-			} else {
-				println("Parse Error: \(error.userInfo)")
-			}
 		}
 	}
 	

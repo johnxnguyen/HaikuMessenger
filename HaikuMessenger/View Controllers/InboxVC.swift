@@ -26,6 +26,7 @@ class InboxVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		
 		// sets status bar to white (only for this VC)
 		//self.navigationController!.navigationBar.barStyle = UIBarStyle.Black
 		

@@ -2,7 +2,7 @@
 //  StoredFriend.swift
 //  HaikuMessenger
 //
-//  Created by John Nguyen on 20/11/2014.
+//  Created by John Nguyen on 26/11/2014.
 //  Copyright (c) 2014 John Nguyen. All rights reserved.
 //
 
@@ -11,17 +11,13 @@ import CoreData
 
 @objc(StoredFriend)
 
-class StoredFriend: NSManagedObject, Equatable {
+class StoredFriend: NSManagedObject {
 
-    @NSManaged var email: String
     @NSManaged var id: String
     @NSManaged var profileImage: NSData
     @NSManaged var username: String
+    @NSManaged var firstName: String
+    @NSManaged var lastName: String
     @NSManaged var user: StoredUser
 
-}
-
-// equatable function, compares friend ids
-func ==(lhs: StoredFriend, rhs: StoredFriend) -> Bool {
-	return lhs.id == rhs.id
 }

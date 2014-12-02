@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
+		println("FINISHED LAUNCH")
 		
 		// set up Parse
 		Parse.setApplicationId("c9OYYti1GDRDDCzMoorltK4wKOFhXr0VGGG3tjdI", clientKey: "U4ZvJjglcUMiF93MhstUGZ5NzHR98ZaQVtcv0tJH")
@@ -83,9 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// generate users
 		//Factory.generateUsers()
 		
-
-		
-				
 		return true
 	}
 	
@@ -106,26 +104,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
 		
+		println("Push Notification Received!")
 		PFPush.handlePush(userInfo)
+	}
+	
+	// Called when a push notification occurs when app is not open? I think
+	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+		
+		println("Silent Push Notification Received!")
+		
+//		let senderId = userInfo[kPush.SenderId] as String
+//		let identifier = userInfo[kPush.Identifier] as String
+//		println("sender of notification: \(senderId), of identifier: \(identifier)")
+
+		completionHandler(UIBackgroundFetchResult.NoData)
+		
 	}
 
 	func applicationWillResignActive(application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+		println("WILL RESIGN ACTIVE")
 	}
 
 	func applicationDidEnterBackground(application: UIApplication) {
 		// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 		// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+		println("ENTERED BACKGROUND")
 	}
 
 	func applicationWillEnterForeground(application: UIApplication) {
 		// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+		println("WILL ENTER FOREGROUND")
 	}
 
 	func applicationDidBecomeActive(application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-		
+		println("BECAME ACTIVE")
 		
 		// handler
 		FBAppCall.handleDidBecomeActive()
@@ -134,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 		// Saves changes in the application's managed object context before the application terminates.
-		
+		println("WILL TERMINATE")
 		self.saveContext()
 	}
 
@@ -159,7 +174,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	    let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("HaikuMessenger.sqlite")
 	    var error: NSError? = nil
 	    var failureReason = "There was an error creating or loading the application's saved data."
-	    if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+		
+		// allow light migrations
+		let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
+		
+	    if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options, error: &error) == nil {
 	        coordinator = nil
 	        // Report any error we got.
 	        let dict = NSMutableDictionary()

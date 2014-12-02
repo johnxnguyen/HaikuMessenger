@@ -11,14 +11,17 @@ import Foundation
 
 // PARSE OBJECT KEYS //
 
-let kFriendRequest = (	ClassKey: "FriendRequest",
-						FromUser: "fromUser",
-						  ToUser: "toUser",
-					   StatusKey: "status",
-				  StatusAccepted: "accepted",
-				  StatusDeclined: "declined",
-				   StatusPending: "pending",
-					MarkedAsRead: "markedAsRead")
+// column keys
+let kFriendRequest = (			Class: "FriendRequest",
+							 FromUser: "fromUser",
+							   ToUser: "toUser",
+							   Status: "status",
+						 MarkedAsRead: "markedAsRead")
+
+// constant values
+let kFriendRequestStatus = ( Accepted: "accepted",
+							 Declined: "declined",
+							  Pending: "pending")
 
 let kUserNotification = (	ClassKey: "UserNotification",
 							FromUser: "fromUser",
@@ -26,23 +29,10 @@ let kUserNotification = (	ClassKey: "UserNotification",
 							 Message: "message",
 						MarkedAsRead: "markedAsRead")
 
-let kSystemNotification = (	ClassKey: "SystemNotification",
-							FromUser: "fromUser",
-							  ToUser: "toUser",
-							 TypeKey: "type",
-			   TypeFriendRequestSent: "friendRequestSent",
-		   TypeFriendRequestAccepted: "friendRequestAccepted",
-			TypeFriendUpdatedProfile: "friendUpdatedProfile",
-				   TypeFriendDeleted: "friendDeleted",
-				 TypeBlockedByFriend: "blockedByFriend",
-			   TypeUnblockedByFriend: "unblockedByFriend",
-						MarkedAsRead: "markedAsRead")
 	
 let kUser = (			 Profile: "profile",
 					ProfilePhoto: "ProfilePhoto",
-						 Friends: "friends",
-				   Notifications: "notifications",
-				  FriendRequests: "friendRequests")
+						 Friends: "friends")
 
 
 // VIEW CONTROLLER STORYBOARD/RESTORATION IDS //

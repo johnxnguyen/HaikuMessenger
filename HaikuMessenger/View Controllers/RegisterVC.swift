@@ -9,7 +9,7 @@
 //	-------------------------- TO DO -----------------------------
 //
 //	- forgot password?
-//
+//	- option to select camera or photolibray
 //	--------------------------------------------------------------
 
 
@@ -156,27 +156,15 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 							// success
 							if error == nil {
 								
+								// prevents skipping login page
+								PFUser.logOut()
+								
+								// go back to login
+								self.navigationController!.popViewControllerAnimated(true)
+								
 								println("Facebook registration complete!")
 								
-								// save to coreData
-								let coreDataManager = CoreDataManager()
-								
-								// successfully saved to CoreData
-								if coreDataManager.storeUser(user, withImage: profilePictureData) == true {
-									
-									// prevents skipping login page
-									PFUser.logOut()
-									
-									// go back to login
-									self.navigationController!.popViewControllerAnimated(true)
-									
-								// failed to save to CoreData
-								} else {
-									
-									self.abort()
-								}
-								
-							// failed to save FB user to Parse
+							// failed
 							} else {
 								
 								println("Parse Error: \(error.userInfo)")
@@ -211,26 +199,13 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 					// success
 					if error == nil {
 						
+						// prevents skipping login page
+						PFUser.logOut()
+						
+						// go back to login
+						self.navigationController!.popViewControllerAnimated(true)
+						
 						println("Email registration complete!")
-						
-						// save to CoreData
-						let coreDataManager = CoreDataManager()
-						
-						// successfully saved to CoreData
-						if coreDataManager.storeUser(PFUser.currentUser(), withImage: profilePictureData) == true {
-							
-							// prevents skipping login page
-							PFUser.logOut()
-							
-							// go back to login
-							self.navigationController!.popViewControllerAnimated(true)
-							
-						// failed to save to CoreData
-						} else {
-							
-							self.abort()
-						}
-						
 						
 					// failed email signup
 					} else {
@@ -268,38 +243,73 @@ class RegisterVC: UIViewController, NSURLConnectionDataDelegate, UIImagePickerCo
 	//
 	@IBAction func editImageButtonTapped(sender: UIButton) {
 		
-		// if camera is available
-		if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+		// action sheet
+		let alert = UIAlertController(title: "Choose a profile picture", message: nil, preferredStyle: .ActionSheet)
+		
+		// camera action, open camera
+		let cameraAction = UIAlertAction(title: "Camera", style: .Default) { (action: UIAlertAction!) -> Void in
 			
-			var cameraController = UIImagePickerController()
-			
-			// set up controller
-			cameraController.delegate = self
-			cameraController.sourceType = UIImagePickerControllerSourceType.Camera
-			let mediaTypes: [AnyObject] = [kUTTypeImage]
-			cameraController.mediaTypes = mediaTypes
-			cameraController.allowsEditing = false
-			
-			presentViewController(cameraController, animated: true, completion: nil)
-			
-		} else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-			
-			var photoLibraryController = UIImagePickerController()
-			
-			// set up controller
-			photoLibraryController.delegate = self
-			photoLibraryController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-			let mediaTypes: [AnyObject] = [kUTTypeImage]
-			photoLibraryController.mediaTypes = mediaTypes
-			photoLibraryController.allowsEditing = false
-			
-			presentViewController(photoLibraryController, animated: true, completion: nil)
-			
-		} else {
-			
-			// alert user
-			alertUser("Oh no!", message: "Your device does not support the camera or photo library")
+			// if camera is available
+			if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+				
+				var cameraController = UIImagePickerController()
+				
+				// set up controller
+				cameraController.delegate = self
+				cameraController.sourceType = UIImagePickerControllerSourceType.Camera
+				let mediaTypes: [AnyObject] = [kUTTypeImage]
+				cameraController.mediaTypes = mediaTypes
+				cameraController.allowsEditing = false
+				
+				self.presentViewController(cameraController, animated: true, completion: nil)
+				
+			} else {
+				self.alertUser("Oh no!", message: "Couldn't open the camera! Please try again.")
+			}
 		}
+		
+		// library action, open library
+		let libraryAction = UIAlertAction(title: "Photo Library", style: .Default) { (action: UIAlertAction!) -> Void in
+			
+			// if library is available
+			if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+				
+				var photoLibraryController = UIImagePickerController()
+				
+				// set up controller
+				photoLibraryController.delegate = self
+				photoLibraryController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+				let mediaTypes: [AnyObject] = [kUTTypeImage]
+				photoLibraryController.mediaTypes = mediaTypes
+				photoLibraryController.allowsEditing = false
+				
+				self.presentViewController(photoLibraryController, animated: true, completion: nil)
+				
+			} else {
+				self.alertUser("Oh no!", message: "Couldn't open your photo library! Please try again.")
+			}
+		}
+		
+		// cancel action, do nothing
+		let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action: UIAlertAction!) -> Void in
+		}
+		
+		alert.addAction(cameraAction)
+		alert.addAction(libraryAction)
+		alert.addAction(cancelAction)
+		
+		// on iPad & regular width devices, actionsheet is displayed as popover.
+		// if device is compact width, this returns nil
+		let popover = alert.popoverPresentationController
+		
+		if popover != nil {
+			// provide popover parameters
+			popover!.sourceView = sender
+			popover!.sourceRect = sender.bounds
+			popover!.permittedArrowDirections = UIPopoverArrowDirection.Any
+		}
+		
+		presentViewController(alert, animated: true, completion: nil)
 	}
 	
 	

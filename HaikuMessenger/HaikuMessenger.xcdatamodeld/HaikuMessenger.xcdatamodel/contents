@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14C68k" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="StoredFriend" representedClassName="StoredFriend" syncable="YES">
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImage" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredUser" inverseName="friends" inverseEntity="StoredUser" syncable="YES"/>
@@ -16,7 +17,7 @@
         <relationship name="friends" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="StoredFriend" inverseName="user" inverseEntity="StoredFriend" syncable="YES"/>
     </entity>
     <elements>
-        <element name="StoredFriend" positionX="-54" positionY="27" width="128" height="118"/>
+        <element name="StoredFriend" positionX="-54" positionY="27" width="128" height="135"/>
         <element name="StoredUser" positionX="-54" positionY="-9" width="128" height="133"/>
     </elements>
 </model>

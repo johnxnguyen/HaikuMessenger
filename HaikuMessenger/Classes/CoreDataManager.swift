@@ -108,7 +108,6 @@ class CoreDataManager: NSObject {
 		// set properties
 		storedFriend.id = friend.objectId
 		storedFriend.username = friend.username
-		storedFriend.email = friend.email
 		storedFriend.profileImage = imageData
 		
 		// set relation

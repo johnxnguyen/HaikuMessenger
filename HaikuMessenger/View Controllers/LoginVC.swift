@@ -69,6 +69,7 @@ class LoginVC: UIViewController {
 		super.viewDidAppear(animated)
 		
 		if userIsloggedIn {
+			
 			// bypass login form
 			performSegueWithIdentifier("RevealViewControllerSegue", sender: nil)
 		}
@@ -115,6 +116,7 @@ class LoginVC: UIViewController {
 			
 			// success
 			if error == nil {
+				
 				// segue to inbox
 				self.performSegueWithIdentifier("RevealViewControllerSegue", sender: nil)
 				

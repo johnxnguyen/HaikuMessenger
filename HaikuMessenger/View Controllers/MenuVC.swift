@@ -25,7 +25,7 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	// ------------------------------------------------------------------
 	
 	@IBOutlet weak var usernameLabel: UILabel!
-	@IBOutlet weak var imageView: UIImageView!
+	@IBOutlet weak var imageView: PFImageView!
 	@IBOutlet weak var tableView: UITableView!
 	
 	let menuItems = ["inbox", "friends", "notifications", "settings", "logout"]
@@ -62,7 +62,7 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		
 		// check for notifications
 		checkForUserNotifications()
-		checkForSystemNotifications()
+		//checkForSystemNotifications()
 	}
 	
 	// LOAD VIEW
@@ -167,6 +167,8 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		if item == "logout" {
 			
 			PFUser.logOut()
+			
+			// go to login
 			dismissViewControllerAnimated(true, completion: nil)
 			
 		} else {
@@ -220,7 +222,7 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		query.countObjectsInBackgroundWithBlock { (number: Int32, error: NSError!) -> Void in
 			
 			if error == nil {
-				println("You have \(number) user notification(s)")
+				
 				self.userNotifications = Int(number)
 				
 			} else {
@@ -229,113 +231,15 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		}
 	}
 	
-	// CHECK FOR SYSTEM NOTIFICATIONS
-	//
-	func checkForSystemNotifications() {
-		
-		let query = PFQuery(className: kSystemNotification.ClassKey)
-		query.whereKey(kSystemNotification.ToUser, equalTo: PFUser.currentUser())
-		query.whereKey(kSystemNotification.MarkedAsRead, equalTo: false)
-		
-		query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]!, error: NSError!) -> Void in
-			
-			if error == nil {
-				
-				println("You have \(objects.count) system notification(s): ")
-				
-				// unpack notifications
-				for index in 0..<objects.count {
-					
-					let notification = objects[index] as PFObject
-					
-					// determine type
-					let type = notification[kSystemNotification.TypeKey] as String
-					
-					switch type {
-						
-					case kSystemNotification.TypeFriendRequestSent:
-						println("You have a friend request")
-						
-					case kSystemNotification.TypeFriendRequestAccepted:
-						
-						println("Someone has accepted your friend request")
-						
-						// the user who accepted your request
-						let friend = notification[kSystemNotification.FromUser] as PFUser
-						
-						// get their image
-						let image = friend[kUser.ProfilePhoto] as PFFile
-						
-						// get the data
-						image.getDataInBackgroundWithBlock({ (data: NSData!, error: NSError!) -> Void in
-							
-							// success
-							if error == nil {
-								
-								let coreDataManager = CoreDataManager()
-								
-								// store friend to CoreData
-								if coreDataManager.storeFriend(friend, withImageData: data, forUserWithID: PFUser.currentUser().objectId) == true {
-									
-									// change flag
-									notification[kSystemNotification.MarkedAsRead] = true
-									
-									// save changes
-									notification.saveInBackgroundWithBlock({ (success: Bool!, error: NSError!) -> Void in
-										
-										// success
-										if error == nil {
-											println("System Notification marked as read")
-										} else {
-											println("Parse Error: \(error.userInfo)")
-										}
-									})
-									
-								} else {
-									println("Failed to store friend")
-								}
-							}
-						})
-						
-						
-					case kSystemNotification.TypeFriendUpdatedProfile:
-						println("A friend has updated their profile")
-						
-					case kSystemNotification.TypeFriendDeleted:
-						println("A friend has deleted their account")
-						
-					case kSystemNotification.TypeBlockedByFriend:
-						println("You have been blocked by a friend")
-						
-					case kSystemNotification.TypeUnblockedByFriend:
-						println("You have been unblocked by a friend")
-						
-					default:
-						println("System Notification type unrecognised: \(type)")
-						
-					}
-				}
-				
-			} else {
-				// couldnt find notification objects
-				println("Parse Error: \(error.userInfo)")
-			}
-		}
-	}
-	
 	// LOAD USER PROFILE UI
 	//
 	func loadUserProfileUI() {
 		
-		let coreDataManager = CoreDataManager()
-		let currentUser = coreDataManager.userForId(PFUser.currentUser().objectId)
+		usernameLabel.text = PFUser.currentUser().username
+		imageView.image = UIImage(named: "defaultProfilePic")
+		imageView.file = PFUser.currentUser()[kUser.ProfilePhoto] as PFFile
+		imageView.loadInBackground()
 		
-		if currentUser != nil {
-			
-			usernameLabel.text = currentUser!.username
-			imageView.image = UIImage(data: currentUser!.profileImage)
-			imageView.layer.cornerRadius = 10.0
-			imageView.layer.masksToBounds = true
-		}
+		
 	}
 }
